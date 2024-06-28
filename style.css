@@ -24,8 +24,13 @@
         height: 100%;
         object-fit: cover;
     }
+    .hero-btn {
+        text-decoration: none;
+        color: #fff;
+        padding: 0px 4px;
+        font-size: 12px;
 }
-
+}
 nav{
     display: flex;
     padding: 2% 4%;
@@ -506,6 +511,7 @@ h3{
     .about-us1 p{
         padding-right: 0px;
         font-weight: 400;
+        font-size: 25px;
     }
 }
 
@@ -805,7 +811,7 @@ h3{
 }
 .facility-col h2{
     color: #fff;
-    font-weight: 400;
+    font-weight: 300;
     text-align: center;
 }
 /*---------- Blog Page -------------*/
