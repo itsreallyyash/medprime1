@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Website Design - Easy Tutorials</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <section class="sub-header">
+        <nav>
+            <a href="index.html"><img src="images/logo.png" style="width: 80px; z-index: 9999999999;"></a>
+            <div class="nav-links" id="navLinks">  
+                <i class="fa fa-close" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About us</a></li>
+                    <li><a href="about.html">Products</a></li>
+                    <li><a href="">Export</a></li>
+                    <li><a href="">Domestic</a></li>
+                    <li><a href="">Contact Us</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+        <h1>About Us</h1>
+
+        <!-- HTML5 Video Element for Background Video -->
+        <video autoplay muted loop id="bgVideo">
+            <source src="images/bg1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </section>
+    
+    
+    <section class="about-us1">
+        <div class="row">
+            <div class="about-col1">
+                <h1><b>At a glance</b></h1>     
+                <p>
+                    With over 50 years of experience in the pharmaceutical industry, we have built a diverse and robust portfolio. Our journey began with retail pharmacy stores under the names "Laxmi Medical Stores," "Mandeo Medico," and "Nakoda Medical."
+<br><br>
+Recognizing the potential for growth, we launched "Labdhi Lifesciences," a company dedicated to the distribution of generic medications. Labdhi Lifesciences offers an extensive range of over 400 products, catering to various sectors such as orthopaedics, dermatology, over-the-counter (OTC), diabetes care, and respiratory care products. 
+<br><br>
+In our ongoing pursuit of expansion and innovation, we are proud to introduce "MedPrime International." This latest venture focuses on merchant exporting and contract manufacturing, reinforcing our presence in the global pharmaceutical market.
+
+                </p>
+                
+                <a href="" class="hero-btn red-btn">Check our catalog</a>
+            </div>
+            <div class="about-col">
+                <img src="images/about.jpg" style="width: 70%; padding-right: 200px;" >
+            </div>
+        </div>    
+    </section>
+
+
+    <section class="facility">
+        <h1 style="padding-bottom: 20px;">Our Team</h1>
+                
+            </div>
+            <div class="row5">
+                <div class="facility-col">
+                    <img src="images/user.jpg">
+                    <h3>Mokshit Jain</h3>
+                    <p>Director <span style="font-size: 18px; padding-top: 0px;"><br>[Marketing head]</span></p>
+                    <p><a href = "mailto: rachana.shetty283@nmims.edu.in"style="color:#1cac4a; text-decoration:none" >Contact</a>
+                    </p>
+                </div>
+                <div class="facility-col">
+                    <img src="images/user.jpg">
+                    <h3>Mukesh Jain</h3>
+                    <p>Director</p>
+                    <p><a href = "mailto: sehajsingh.bhalla09@nmims.edu.in"style="color:#1cac4a; text-decoration:none" >Contact</a>
+                    </p>
+                </div>
+            </div>
+    </section>
+<!-------- footer ---------->
+
+<section class="footer">
+    <div class="footer-content">
+        <div class="footer-info">
+            <p>SHOP NO.10, GRD FLOOR, SAVANI CHSL,<br>
+            RAJAWADI NAKA, M.G. ROAD,<br>
+            GHATKOPAR EAST, MUMBAI Tal: GHATKOPAR<br>
+            (MUMBAI-ZONE3) Pin: 400077</p>
+            <p>Email: <a href="mailto:info@medprime-international.com" class="footer-link">info@medprime-international.com</a></p>
+            <p>Phone: <a href="tel:+918928291367" class="footer-link">+91 89282 91367</a></p>
+        </div>
+    </div>
+</section> 
+
+    <!-- JavaScript for toggle menu -->
+    <script>
+        var navLinks = document.getElementById("navLinks");
+
+        function showMenu() {
+            navLinks.style.right = "0";
+        }
+
+        function hideMenu() {
+            navLinks.style.right = "-200px";
+        }
+    </script>
+</body>
+</html>
