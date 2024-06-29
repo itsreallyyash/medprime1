@@ -746,6 +746,10 @@ h3{
     color: #2a3e98;
     text-align: justify;
 }
+.logo {
+    width: 80px;
+    z-index: 9999999999;
+}
 .about-col1 p{
     padding: 15px 0 25px;
     color: #2a3e98;
@@ -883,6 +887,9 @@ h3{
 @media (max-width:700px){
     .sub-header h1{
         font-size: 24px;
+    }
+    .logo{
+        width: 40px;
     }
 } 
 
