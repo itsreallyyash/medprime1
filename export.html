@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedPrime</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <section class="sub-header">
+        <nav>
+            <a href="index.html"><img src="images/logo.png" class="logo"></a>
+            <div class="nav-links" id="navLinks">  
+                <i class="fa fa-close" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About us</a></li>
+                    <li><a href="">Export</a></li>
+                    <li><a href="">Domestic</a></li>
+                    <li><a href="">Contact Us</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+        <h1>Export</h1>
+
+        <!-- HTML5 Video Element for Background Video -->
+        <video autoplay muted loop id="bgVideo">
+            <source src="images/bg1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const scrollContainer = document.getElementById('scroll-container');
+            const campusCols = document.querySelectorAll('.campus-col');
+            const productDisplay = document.getElementById('product-display');
+            let isScrolling;
+        
+            // Sample product data (replace with your actual data or fetch dynamically)
+            const products = {
+                "Vitamins, Proteins, Calcium, Neutraceuticals": [
+                    "Product 1",
+                    "Product 2",
+                    "Product 3"
+                ],
+                "Dermatology": [
+                    "Product A",
+                    "Product B",
+                    "Product C"
+                ],
+                "Orthopaedic": [
+                    "Tablet - Tramadol 37.50 mg + Paracetamol 325 mg - 20*10 Blister",
+                    "Tablet - Trypsin-Chymotrypsin 1,00,000 Armour Units - 10*10 ALU",
+                    "Tablet - Trypsin-Chymotrypsin 2,00,000 Armour Units - 10*10 ALU",
+                    "Tablet - Trypsin-Chymotrypsin 50,000 Armour Units + Aceclofenac 100 mg + Paracetamol 325 mg - 10*10 BLI",
+                    "Tablet - Trypsin-Chymotrypsin 150,000 Armour Units + Aceclofenac 100 mg + Paracetamol 325 mg - 10*10 BLI",
+                    "Gel - Aceclofenac 1.5% + Menthol 5% + Methyl Salicylate 10% + Capsaicin 0.01% + Oleum Lini 3% - 30GM",
+                    "Tablet - Aceclofenac 100 MG + Paracetamol 325mg + Chlorzoxazone 25Omg - 10*10 BLI",
+                    "Suspension - Aceclofenac 50 MG + Paracetamol 125mg - 60ml with box",
+                    "Tablet - Aceclofenac 100 MG + Paracetamol 325 mg (White Tablet) - 10*10 BLI",
+                    "Tablet - Aceclofenac 100 MG + Paracetamol 325mg + Serratiopeptidase 15 mg - 10*10 ALU",
+                    "Sachet - Collagen Peptide 9gm + Glucosamine 450mg + Vitamin C 75mg - 10 gm",
+                    "Tablet - Chondroitin 200mg + Collagen Peptide (Type l, I, v, X) 200mg + Sodium Hyaluronate 75mg + Vitamin C 5Omg + Rosehip Extract 10mg - 10*15 blister",
+                    "Soft Gelatin Capsule - Curcumin 300 mg + Piperine 5 mg - 10*10 ALU",
+                    "Tablet - Mefenamic Acid 250 MG + Paracetamol 325 mg - 10*10 BLI",
+                    "Tablet - Dicyclomine 20 mg + Mefenamic Acid 250 mg + Simethicone 40 mg - 10*10 BLI",
+                    "Tablet - Ibuprofen 400 mg + Paracetamol 325mg + Serratiopeptidase 10 mg - 10*10 BLI",
+                    "Tablet - Febuxostat 40mg - 10*10 ALU",
+                    "Spray - Diclofenac Diethylamine 1,16% w/w + Linseed Oil 3.0% w/w + Methyl Salicylate 10.0% w/w + Menthol 5% w/w - 55mg",
+                    "Gel - Diclofenac Sodium 1%,+Linseed Oil 3%+ Methyl Salicylate 10% +Menthol 5% - 30gm",
+                    "Tablet - Diclofenac 50mg+ Paracetamol 325mg + Chlorzoxazone 250mg - 10*10 BLI",
+                    "Tablet - Diclofenac 50mg + Paracetamol 325mg+serratiopeptidase 15 mg - 10*10 BLI",
+                    "Tablet - Diacerein 50mg + Methylsulphonylmethane 250mg + Glucosamine 750mg - 10*10 ALU",
+                    "Tablet - Boswelia Serrata 100 mg + Rose hip Extract 750mg+Curcuma longa Extract 400 mg (Food) - 10*10",
+                    "Tablet - Ketorolac 10 mg - 10 15 ALU",
+                    "Tablet - Baclofen 10mg - 20°10 BLI",
+                    "Tablet - Thiocolchicoside Amg + Aceclofenac 100mg - 10*10 ALU",
+                    "Tablet - Thiocolchicoside 8mg + Aceclofenac 100mg - 10 10 ALU",
+                    "Tablet - Thiocolchicoside 4mg + Aceclofenac 100mg + Paracetamol 325mg - Tablet",
+                    "Gel - Diclofenac Sodium 1%, Linseed Oil 3%, Thiocolchicoside 0.125%, Methyl Salicylate 10% Menthol 5% - 30gm",
+                    "Tablet - Nimesulide 100mg + Paracetamol 325mg - 20*10 BLI",
+                    "Tablet - Nimesulide 100mg + Paracetamol 325mg - 20*10 BLI",
+                    "Tablet - Sulfasalazine 500 mg - 10*15 Blister",
+                    "Soft Gelatin capsule - Rosehip extract 250 mg + Collagen Peptide 40 mg + Sodium Hyaluronate 30 mg + Vitamin C 35 mg + Chondroitin 200 mg - 10*10",
+                    "Tablet - Drotaverine 80 mg + Mefenamic Acid 250nmg - 10*10 BLI",
+                    "Tablet - Serratiopeptidase 10mg + Diclofenac Potassium 50mg - 10*10 ALU",
+                    "Tablet - Serratiopeptidase 20mg - 10*10 ALU",
+                    "Gel - Tramadol 0.5% + Diclofenac 1.16% + Methyl salicylate 10% + Linseed Oil 3% + Menthol 5% - 30gm",
+                    "Tablet - Etodolac 400 mg Extended Release - 10*10 ALU",
+                    "Tablet - Etodolac 400 mg + Thiocolchicoside 4 mg - 10*10 ALU",
+                    "Tablet - Etodolac 400mg + Paracetamol 325mg - 10*10 ALU",
+                    "Tablet - Etoricoxib 90mg - 10*10 ALU",
+                    "Tablet - Etoricoxib 120mg - 10*10 ALU",
+                    "Tablet - Etoricoxib 60mg + Thiocolchicoside 4mg - 10*10 ALU",
+                    "Tablet - Etoricoxib 60mg + Thiocolchicoside 8mg - 10*10 BLI",
+                    "Tablet - Trypsin 48mg + Bromelain 90mg + Rutoside 100mg - 10*10 ALU",
+                    "Tablet - Trypsin 48mg + Bromelain 90mg + Rutoslde 100mg + Diclofenac Sodium 50 mg - 10°10 ALU",
+                    "Tablet - Ivabradine 5mg - 10x10 Alu",
+                    "Tablet - Losartan Potassium 25 mg - 10x10 ALU",
+                    "Tablet - Losartan Potassium 50 mg - 10x10 ALU",
+                    "Tablet - Losartan Potassium 50 mg + Hydrochlorothiazide 12.5 mg - 10x10 ALU",
+                    "Tablet - Rosuvastatin Calcium eg to Rosuvastatin 10 mg - 10x10 ALU",
+                    "Tablet - Rosuvastatin Calcium eg to Rosuvastatin 20 mg - 10x10 ALU",
+                    "Capsule - Rosuvastatin 10mg + Aspirin 75mg + Clopidogrel 75 mg - 10x10 Alu",
+                    "Capsule - Rosuvastatin 20mg + Aspirin 75mg + Clopidogrel 75 mg - 10x10 Alu",
+                    "Tablet - Atorvastatin 10 mg - 10x10 Alu",
+                    "Tablet - Atorvastatin 20 mg - 10x10 Alu",
+                    "Tablet - Atorvastatin 40 mg - 10x10 Alu",
+                    "Capsule - Atorvastatin 10mg + Aspirin 150 mg - 10x10 Alu",
+            "Capsule - Atorvastatin 10mg + Aspirin 75 mg - 10x10 Alu",
+            "Capsule - Atorvastatin 10mg + Aspirin 75 mg + Clopidogrel 75mg - 10x10 Alu",
+            "Tablet - Atorvastatin 20mg + Aspirin 75 mg + Clopidogrel 75 mg - 10x10 Alu",
+            "Tablet - Ticagrelor 90mg - 10*14",
+            "Tablet - Amlodipine 5 mg - 10x10",
+            "Tablet - Metoprolol 25 mg Extended Release - 10x10 Alu",
+            "Tablet - Metoprolol 50 mg Extended Release - 10x10 Alu",
+            "Tablet - Telmisartan 20 mg - 10*10 ALU",
+            "Tablet - Telmisartan 40 mg - 10*10 alu",
+            "Tablet - Telmisartan 40 mg + Amlodipine 5 mg - 10x10 Alu",
+            "Tablet - Telmisartan 40 mg + Hydrochlorothiazide 12.5 mg - 10x10 Alu",
+            "Tablet - Telmisartan 40 Mg + Metoprolol 25/ 50 Mg - 10x10 Alu",
+            "Tablet - Nitroglycerin 2.6 mg controlled release - 30 Tabs bottle"
+        ]
+    };
+
+    // Function to update product display
+    const updateProductDisplay = (category) => {
+        // Clear existing products
+        productDisplay.innerHTML = "";
+
+        // Check if category exists in products object
+        if (products.hasOwnProperty(category)) {
+            // Create new list element for each product and append to product display
+            products[category].forEach(product => {
+                const li = document.createElement('li');
+                li.textContent = product;
+                productDisplay.appendChild(li);
+            });
+        } else {
+            // If category does not exist (should not happen if data is correctly structured)
+            const li = document.createElement('li');
+            li.textContent = "No products found.";
+            productDisplay.appendChild(li);
+        }
+    };
+
+    // Scroll event listener
+    scrollContainer.addEventListener('scroll', () => {
+        clearTimeout(isScrolling);
+        isScrolling = setTimeout(() => {
+            let closest = campusCols[0];
+            let currentCenter = Math.abs(window.innerWidth / 2 - closest.getBoundingClientRect().left);
+            campusCols.forEach(col => {
+                const colCenter = Math.abs(window.innerWidth / 2 - col.getBoundingClientRect().left);
+                if (colCenter < currentCenter) {
+                    currentCenter = colCenter;
+                    closest = col;
+                }
+            });
+
+            // Remove highlight from all columns
+            campusCols.forEach(col => col.classList.remove('highlighted'));
+
+            // Add highlight to closest column
+            closest.classList.add('highlighted');
+
+            // Update product display based on centered column
+            updateProductDisplay(closest.querySelector('h3').textContent.trim());
+        }, 50);
+    });
+});
+</script>
+
+        
+        
+        
+        
+        
+        <section class="campus">
+            <h1 style="text-align: left;"><b>Products</b></h1>
+            <p style="text-align: left;">Product categories we offer at MedPrime International</p>
+            <div class="scroll-container">
+                <div class="row" id="scroll-container">
+                    <div class="campus-col">
+                        <img src="images/OTC 2.png">
+                        <div class="layer1">
+                            <h3>Vitamins, Proteins,<br>Calcium,<br>Neutraceuticals</h3>
+                        </div>
+                    </div>
+                    <div class="campus-col">
+                        <img src="images/cat2.jpg">
+                        <div class="layer1">
+                            <h3>Dermatology</h3>
+                        </div>
+                    </div>
+                    <div class="campus-col">
+                        <img src="images/cat3.jpg">
+                        <div class="layer1">
+                            <h3>Orthopaedic</h3>
+                        </div>
+                    </div>
+                    <div class="campus-col">
+                        <img src="images/diab.jpg">
+                        <div class="layer1">
+                            <h3>Anti - Diabetic</h3>
+                        </div>
+                    </div>
+                    <div class="campus-col">
+                        <img src="images/eye (1).jpg">
+                        <div class="layer1">
+                            <h3>Ear, Eye, Nasal</h3>
+                        </div>
+                    </div>
+                    <div class="campus-col">
+                        <img src="images/dental.jpg">
+                        <div class="layer1">
+                            <h3>Dental</h3>
+                        </div>
+                    </div>
+                    <div class="campus-col">
+                        <img src="images/cough.jpg">
+                        <div class="layer1">
+                            <h3>Anti Cold & Coughs</h3>
+                        </div>
+                    </div>
+                    <div class="campus-col">
+                        <img src="images/women.jpg">
+                        <div class="layer1">
+                            <h3>Gynaecology,<br>Women's health,<br>Infertility</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+
+        <section id="product-display">
+            <!-- Product information dynamically displayed here -->
+        </section>
+
+    <section class="facility">
+        <h1 style="padding-bottom: 20px;">Our Team</h1>
+                
+            </div>
+            <div class="row5">
+                <div class="facility-col">
+                    <img src="images/user.jpg">
+                    <h3>Mukesh Jain</h3>
+                    <h2>Director </h2>
+                    <p><a href = "mailto: rachana.shetty283@nmims.edu.in"style="color:#1cac4a; text-decoration:none" >Contact</a>
+                    </p>
+                </div>
+                <div class="facility-col">
+                    <img src="images/user.jpg">
+                    <h3>Mokshit Jain</h3>
+                    <h2>Director / Marketing Head</h2>
+                    <p><a href = "mailto: sehajsingh.bhalla09@nmims.edu.in"style="color:#1cac4a; text-decoration:none" >Contact</a>
+                    </p>
+                </div>
+            </div>
+    </section>
+<!-------- footer ---------->
+
+<section class="footer">
+    <div class="footer-content">
+        <div class="footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="#">Export</a></li>
+                <li><a href="#">Domestic</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="footer-divider"></div>
+        <div class="footer-info">
+            <h4>Corporate Office Location</h4>
+            <p>SHOP NO.10, GRD FLOOR, SAVANI CHSL,<br>
+            RAJAWADI NAKA, M.G. ROAD,<br>
+            GHATKOPAR EAST, MUMBAI Tal: GHATKOPAR<br>
+            (MUMBAI-ZONE3) Pin: 400077</p>
+            <p>Email: <a href="mailto:info@medprime-international.com" class="footer-link">info@medprime-international.com</a></p>
+            <p>Phone: <a href="tel:+918928291367" class="footer-link">+91 89282 91367</a></p>
+        </div>
+    </div>
+</section>
+
+
+    <!-- JavaScript for toggle menu -->
+    <script>
+        var navLinks = document.getElementById("navLinks");
+
+        function showMenu() {
+            navLinks.style.right = "0";
+        }
+
+        function hideMenu() {
+            navLinks.style.right = "-200px";
+        }
+    </script>
+</body>
+</html>

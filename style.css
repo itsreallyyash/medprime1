@@ -370,28 +370,49 @@ h3{
     padding-bottom: 50px;
 }
 /*---------------- campus ----------------*/
-
-
-.campus{
+.campus {
     width: 80%;
     margin: auto;
     text-align: left;
     padding-top: 50px;
     padding-bottom: 50px;
+    overflow: hidden; /* Hide scrollbar */
+    white-space: nowrap;
 }
-.campus-col{
-    flex-basis: 25%;
+
+.scroll-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.row {
+    display: flex;
+    flex-wrap: nowrap;
+    scroll-snap-type: x mandatory;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+}
+
+.campus-col {
+    flex: 0 0 auto;
+    width: 25%;
     border-radius: 10px;
     margin-bottom: 30px;
     position: relative;
     overflow: hidden;
+    margin-right: 20px; /* Adjust spacing between items */
+    white-space: normal;
+    scroll-snap-align: center; /* Center items on scroll */
+    transition: box-shadow 0.3s;
 }
-.campus-col img{
+
+.campus-col img {
     width: 100%;
     border-radius: 0.2rem;
 }
 
-.layer{
+.layer1 {
     background: transparent;
     height: 100%;
     width: 100%;
@@ -400,11 +421,13 @@ h3{
     position: absolute;
     transition: .5s;
 }
-.layer:hover{
+
+.layer1:hover {
     background: black;
     opacity: 0.6;
 }
-.layer h3{
+
+.layer1 h3 {
     width: 100%;
     font-weight: 500;
     color: #fff;
@@ -417,11 +440,21 @@ h3{
     transition: .3s;
     font-size: 60px;
 }
-.layer:hover h3{
+
+.layer1:hover h3 {
     bottom: 49%;
     opacity: 0.6;
 }
 
+.campus-col.active {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Highlight effect */
+    transition: transform 0.3s ease; /* Smooth transition for scaling */
+    transform: scale(1); /* Initial scale */
+}
+
+.campus-col.active:hover {
+    transform: scale(1.1); /* Scale effect on hover */
+}
 
 /*-------------- Facilities ----------------*/
 
