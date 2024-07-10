@@ -7,6 +7,81 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,600,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        /* Additional Styles for the Table */
+        #product-display {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #product-display h2 {
+            margin-bottom: 20px;
+        }
+
+        #product-display button {
+            background: #2a3e98;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        #product-display button:hover {
+            background: #1e2d73;
+        }
+
+        #product-table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background: #2a3e98;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #product-table th, #product-table td {
+            padding: 15px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        #product-table th {
+            background: #1e2d73;
+            cursor: pointer;
+        }
+
+        #product-table th:hover {
+            background: #16235a;
+        }
+
+        #product-table tr:nth-child(even) {
+            background: #3a4db8;
+        }
+
+        #product-table tr:hover {
+            background: #2a3e98;
+        }
+
+        .sort-arrow {
+            margin-left: 10px;
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+        }
+
+        .sort-asc .sort-arrow {
+            border-bottom: 6px solid #fff;
+        }
+
+        .sort-desc .sort-arrow {
+            border-top: 6px solid #fff;
+        }
+    </style>
 </head>
 <body>
     <section class="sub-header">
@@ -33,272 +108,435 @@
         </video>
     </section>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const scrollContainer = document.getElementById('scroll-container');
-            const campusCols = document.querySelectorAll('.campus-col');
-            const productDisplay = document.getElementById('product-display');
-            let isScrolling;
-        
-            // Sample product data (replace with your actual data or fetch dynamically)
-            const products = {
-                "Vitamins, Proteins, Calcium, Neutraceuticals": [
-                    "Product 1",
-                    "Product 2",
-                    "Product 3"
-                ],
-                "Dermatology": [
-                    "Product A",
-                    "Product B",
-                    "Product C"
-                ],
-                "Orthopaedic": [
-                    "Tablet - Tramadol 37.50 mg + Paracetamol 325 mg - 20*10 Blister",
-                    "Tablet - Trypsin-Chymotrypsin 1,00,000 Armour Units - 10*10 ALU",
-                    "Tablet - Trypsin-Chymotrypsin 2,00,000 Armour Units - 10*10 ALU",
-                    "Tablet - Trypsin-Chymotrypsin 50,000 Armour Units + Aceclofenac 100 mg + Paracetamol 325 mg - 10*10 BLI",
-                    "Tablet - Trypsin-Chymotrypsin 150,000 Armour Units + Aceclofenac 100 mg + Paracetamol 325 mg - 10*10 BLI",
-                    "Gel - Aceclofenac 1.5% + Menthol 5% + Methyl Salicylate 10% + Capsaicin 0.01% + Oleum Lini 3% - 30GM",
-                    "Tablet - Aceclofenac 100 MG + Paracetamol 325mg + Chlorzoxazone 25Omg - 10*10 BLI",
-                    "Suspension - Aceclofenac 50 MG + Paracetamol 125mg - 60ml with box",
-                    "Tablet - Aceclofenac 100 MG + Paracetamol 325 mg (White Tablet) - 10*10 BLI",
-                    "Tablet - Aceclofenac 100 MG + Paracetamol 325mg + Serratiopeptidase 15 mg - 10*10 ALU",
-                    "Sachet - Collagen Peptide 9gm + Glucosamine 450mg + Vitamin C 75mg - 10 gm",
-                    "Tablet - Chondroitin 200mg + Collagen Peptide (Type l, I, v, X) 200mg + Sodium Hyaluronate 75mg + Vitamin C 5Omg + Rosehip Extract 10mg - 10*15 blister",
-                    "Soft Gelatin Capsule - Curcumin 300 mg + Piperine 5 mg - 10*10 ALU",
-                    "Tablet - Mefenamic Acid 250 MG + Paracetamol 325 mg - 10*10 BLI",
-                    "Tablet - Dicyclomine 20 mg + Mefenamic Acid 250 mg + Simethicone 40 mg - 10*10 BLI",
-                    "Tablet - Ibuprofen 400 mg + Paracetamol 325mg + Serratiopeptidase 10 mg - 10*10 BLI",
-                    "Tablet - Febuxostat 40mg - 10*10 ALU",
-                    "Spray - Diclofenac Diethylamine 1,16% w/w + Linseed Oil 3.0% w/w + Methyl Salicylate 10.0% w/w + Menthol 5% w/w - 55mg",
-                    "Gel - Diclofenac Sodium 1%,+Linseed Oil 3%+ Methyl Salicylate 10% +Menthol 5% - 30gm",
-                    "Tablet - Diclofenac 50mg+ Paracetamol 325mg + Chlorzoxazone 250mg - 10*10 BLI",
-                    "Tablet - Diclofenac 50mg + Paracetamol 325mg+serratiopeptidase 15 mg - 10*10 BLI",
-                    "Tablet - Diacerein 50mg + Methylsulphonylmethane 250mg + Glucosamine 750mg - 10*10 ALU",
-                    "Tablet - Boswelia Serrata 100 mg + Rose hip Extract 750mg+Curcuma longa Extract 400 mg (Food) - 10*10",
-                    "Tablet - Ketorolac 10 mg - 10 15 ALU",
-                    "Tablet - Baclofen 10mg - 20°10 BLI",
-                    "Tablet - Thiocolchicoside Amg + Aceclofenac 100mg - 10*10 ALU",
-                    "Tablet - Thiocolchicoside 8mg + Aceclofenac 100mg - 10 10 ALU",
-                    "Tablet - Thiocolchicoside 4mg + Aceclofenac 100mg + Paracetamol 325mg - Tablet",
-                    "Gel - Diclofenac Sodium 1%, Linseed Oil 3%, Thiocolchicoside 0.125%, Methyl Salicylate 10% Menthol 5% - 30gm",
-                    "Tablet - Nimesulide 100mg + Paracetamol 325mg - 20*10 BLI",
-                    "Tablet - Nimesulide 100mg + Paracetamol 325mg - 20*10 BLI",
-                    "Tablet - Sulfasalazine 500 mg - 10*15 Blister",
-                    "Soft Gelatin capsule - Rosehip extract 250 mg + Collagen Peptide 40 mg + Sodium Hyaluronate 30 mg + Vitamin C 35 mg + Chondroitin 200 mg - 10*10",
-                    "Tablet - Drotaverine 80 mg + Mefenamic Acid 250nmg - 10*10 BLI",
-                    "Tablet - Serratiopeptidase 10mg + Diclofenac Potassium 50mg - 10*10 ALU",
-                    "Tablet - Serratiopeptidase 20mg - 10*10 ALU",
-                    "Gel - Tramadol 0.5% + Diclofenac 1.16% + Methyl salicylate 10% + Linseed Oil 3% + Menthol 5% - 30gm",
-                    "Tablet - Etodolac 400 mg Extended Release - 10*10 ALU",
-                    "Tablet - Etodolac 400 mg + Thiocolchicoside 4 mg - 10*10 ALU",
-                    "Tablet - Etodolac 400mg + Paracetamol 325mg - 10*10 ALU",
-                    "Tablet - Etoricoxib 90mg - 10*10 ALU",
-                    "Tablet - Etoricoxib 120mg - 10*10 ALU",
-                    "Tablet - Etoricoxib 60mg + Thiocolchicoside 4mg - 10*10 ALU",
-                    "Tablet - Etoricoxib 60mg + Thiocolchicoside 8mg - 10*10 BLI",
-                    "Tablet - Trypsin 48mg + Bromelain 90mg + Rutoside 100mg - 10*10 ALU",
-                    "Tablet - Trypsin 48mg + Bromelain 90mg + Rutoslde 100mg + Diclofenac Sodium 50 mg - 10°10 ALU",
-                    "Tablet - Ivabradine 5mg - 10x10 Alu",
-                    "Tablet - Losartan Potassium 25 mg - 10x10 ALU",
-                    "Tablet - Losartan Potassium 50 mg - 10x10 ALU",
-                    "Tablet - Losartan Potassium 50 mg + Hydrochlorothiazide 12.5 mg - 10x10 ALU",
-                    "Tablet - Rosuvastatin Calcium eg to Rosuvastatin 10 mg - 10x10 ALU",
-                    "Tablet - Rosuvastatin Calcium eg to Rosuvastatin 20 mg - 10x10 ALU",
-                    "Capsule - Rosuvastatin 10mg + Aspirin 75mg + Clopidogrel 75 mg - 10x10 Alu",
-                    "Capsule - Rosuvastatin 20mg + Aspirin 75mg + Clopidogrel 75 mg - 10x10 Alu",
-                    "Tablet - Atorvastatin 10 mg - 10x10 Alu",
-                    "Tablet - Atorvastatin 20 mg - 10x10 Alu",
-                    "Tablet - Atorvastatin 40 mg - 10x10 Alu",
-                    "Capsule - Atorvastatin 10mg + Aspirin 150 mg - 10x10 Alu",
-            "Capsule - Atorvastatin 10mg + Aspirin 75 mg - 10x10 Alu",
-            "Capsule - Atorvastatin 10mg + Aspirin 75 mg + Clopidogrel 75mg - 10x10 Alu",
-            "Tablet - Atorvastatin 20mg + Aspirin 75 mg + Clopidogrel 75 mg - 10x10 Alu",
-            "Tablet - Ticagrelor 90mg - 10*14",
-            "Tablet - Amlodipine 5 mg - 10x10",
-            "Tablet - Metoprolol 25 mg Extended Release - 10x10 Alu",
-            "Tablet - Metoprolol 50 mg Extended Release - 10x10 Alu",
-            "Tablet - Telmisartan 20 mg - 10*10 ALU",
-            "Tablet - Telmisartan 40 mg - 10*10 alu",
-            "Tablet - Telmisartan 40 mg + Amlodipine 5 mg - 10x10 Alu",
-            "Tablet - Telmisartan 40 mg + Hydrochlorothiazide 12.5 mg - 10x10 Alu",
-            "Tablet - Telmisartan 40 Mg + Metoprolol 25/ 50 Mg - 10x10 Alu",
-            "Tablet - Nitroglycerin 2.6 mg controlled release - 30 Tabs bottle"
-        ]
-    };
+        const track = document.getElementById("image-track");
 
-    // Function to update product display
-    const updateProductDisplay = (category) => {
-        // Clear existing products
-        productDisplay.innerHTML = "";
+        const handleOnDown = e => track.dataset.mouseDownAt = e.clientX;
 
-        // Check if category exists in products object
-        if (products.hasOwnProperty(category)) {
-            // Create new list element for each product and append to product display
-            products[category].forEach(product => {
-                const li = document.createElement('li');
-                li.textContent = product;
-                productDisplay.appendChild(li);
-            });
-        } else {
-            // If category does not exist (should not happen if data is correctly structured)
-            const li = document.createElement('li');
-            li.textContent = "No products found.";
-            productDisplay.appendChild(li);
+        const handleOnUp = () => {
+            track.dataset.mouseDownAt = "0";  
+            track.dataset.prevPercentage = track.dataset.percentage;
         }
-    };
 
-    // Scroll event listener
-    scrollContainer.addEventListener('scroll', () => {
-        clearTimeout(isScrolling);
-        isScrolling = setTimeout(() => {
-            let closest = campusCols[0];
-            let currentCenter = Math.abs(window.innerWidth / 2 - closest.getBoundingClientRect().left);
-            campusCols.forEach(col => {
-                const colCenter = Math.abs(window.innerWidth / 2 - col.getBoundingClientRect().left);
-                if (colCenter < currentCenter) {
-                    currentCenter = colCenter;
-                    closest = col;
+        const handleOnMove = e => {
+            if (track.dataset.mouseDownAt === "0") return;
+
+            const mouseDelta = parseFloat(track.dataset.mouseDownAt) - e.clientX,
+                  maxDelta = window.innerWidth / 2;
+
+            const percentage = (mouseDelta / maxDelta) * -100,
+                  nextPercentageUnconstrained = parseFloat(track.dataset.prevPercentage) + percentage,
+                  nextPercentage = Math.max(Math.min(nextPercentageUnconstrained, 0), -100);
+
+            track.dataset.percentage = nextPercentage;
+
+            track.animate({
+                transform: `translate(${nextPercentage}%, -50%)`
+            }, { duration: 1200, fill: "forwards" });
+
+            for (const image of track.getElementsByClassName("campus-col")) {
+                image.animate({
+                    objectPosition: `${100 + nextPercentage}% center`
+                }, { duration: 1200, fill: "forwards" });
+            }
+        }
+
+        window.onmousedown = e => handleOnDown(e);
+        window.ontouchstart = e => handleOnDown(e.touches[0]);
+
+        window.onmouseup = e => handleOnUp(e);
+        window.ontouchend = e => handleOnUp(e.touches[0]);
+
+        window.onmousemove = e => handleOnMove(e);
+        window.ontouchmove = e => handleOnMove(e.touches[0]);
+    </script>
+
+    <section class="campus">
+        <h1 style="text-align: left;"><b>Products</b></h1>
+        <p style="text-align: left;">Product categories we offer at MedPrime International</p>
+        <div class="scroll-container">
+            <div class="row" id="scroll-container">
+                <div class="campus-col" onclick="showProducts('Vitamins, Proteins, Calcium, Neutraceuticals')">
+                    <img src="images/OTC 2.png">
+                    <div class="layer1">
+                        <h3>Vitamins, Proteins,<br>Calcium,<br>Neutraceuticals</h3>
+                    </div>
+                </div>
+                <div class="campus-col" onclick="showProducts('Dermatology')">
+                    <img src="images/cat2.jpg">
+                    <div class="layer1">
+                        <h3>Dermatology</h3>
+                    </div>
+                </div>
+                <div class="campus-col" onclick="showProducts('Orthopaedic')">
+                    <img src="images/cat3.jpg">
+                    <div class="layer1">
+                        <h3>Orthopaedic</h3>
+                    </div>
+                </div>
+                <div class="campus-col" onclick="showProducts('Anti - Diabetic')">
+                    <img src="images/diab.jpg">
+                    <div class="layer1">
+                        <h3>Anti - Diabetic</h3>
+                    </div>
+                </div>
+                <div class="campus-col" onclick="showProducts('Ear, Eye, Nasal')">
+                    <img src="images/eye (1).jpg">
+                    <div class="layer1">
+                        <h3>Ear, Eye, Nasal</h3>
+                    </div>
+                </div>
+                <div class="campus-col" onclick="showProducts('Dental')">
+                    <img src="images/dental.jpg">
+                    <div class="layer1">
+                        <h3>Dental</h3>
+                    </div>
+                </div>
+                <div class="campus-col" onclick="showProducts('Anti Cold & Coughs')">
+                    <img src="images/cough.jpg">
+                    <div class="layer1">
+                        <h3>Anti Cold & Coughs</h3>
+                    </div>
+                </div>
+                <div class="campus-col" onclick="showProducts('Gynaecology, Women\'s health, Infertility')">
+                    <img src="images/women.jpg">
+                    <div class="layer1">
+                        <h3>Gynaecology,<br>Women's health,<br>Infertility</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="product-display" style="padding-bottom: 40px;">
+        <!-- Product information dynamically displayed here -->
+    </section>
+
+
+    <section class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <h4>Useful Links</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="#">Export</a></li>
+                    <li><a href="#">Domestic</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-info">
+                <h4>Corporate Office Location</h4>
+                <p>SHOP NO.10, GRD FLOOR, SAVANI CHSL,<br>
+                RAJAWADI NAKA, M.G. ROAD,<br>
+                GHATKOPAR EAST, MUMBAI Tal: GHATKOPAR<br>
+                (MUMBAI-ZONE3) Pin: 400077</p>
+                <p>Email: <a href="mailto:info@medprime-international.com" class="footer-link">info@medprime-international.com</a></p>
+                <p>Phone: <a href="tel:+918928291367" class="footer-link">+91 89282 91367</a></p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const mockData = {
+            "Vitamins, Proteins, Calcium, Neutraceuticals": [
+    { name: "Calcium Citrate 1000mg + Magnesium 100 mg + Zinc 4 mg + Vitamin D3 200 IU", form: "Tablet", strength: "1000mg + 100 mg + 4 mg + 200 IU", packaging: "10*15 PVC" },
+    { name: "Calcium Carbonate 500mg, Calcitriol 0.25mcg, Vitamin K2-7 45mcg, Zinc 7.5 mg, Magnesium 50 mg, Methylcobalamin 1500 mcg, L-Methyl folate 800mcg", form: "Soft Gelatin Capsule", strength: "500mg + 0.25mcg + 45mcg + 7.5 mg + 50 mg + 1500 mcg + 800mcg", packaging: "10*10" },
+    { name: "Calcitrol .25 mcg + Omega 3 fatty Acid containing EPA 180 mg + DHA 120 mg + Methylcobalamin IP 1500 mcg + Folic Acid 400 mcg + Boron 1.5 mg + Calcium Carbonate 500 mg", form: "Soft Gelatin Capsule", strength: ".25 mcg + 180 mg + 120 mg + 1500 mcg + 400 mcg + 1.5 mg + 500 mg", packaging: "10*10" },
+    { name: "Calcium Carbonate 1250 mg eq. to elemental calcium 500 mg + Vitamin D3 250 IU", form: "Tablet", strength: "1250 mg + 500 mg + 250 IU", packaging: "10*15 SILVER PVC" },
+    { name: "Calcium Carbonate 1250 mg eq. to elemental calcium 500 mg + Vitamin D3 1000 IU", form: "Soft Gelatin Capsule", strength: "1250 mg + 500 mg + 1000 IU", packaging: "10x10 Blister" },
+    { name: "Cholecalciferol (Vitamin D3) 60000 IU", form: "Soft Gelatin Capsule", strength: "60000 IU", packaging: "10x1x4" },
+    { name: "Vitamin D3 60000 IU", form: "Sachet", strength: "60000 IU", packaging: "20 sachet" },
+    { name: "Vitamin D3 60000 IU Chewable Tablet", form: "Tablet", strength: "60000 IU", packaging: "10*1*4" },
+    { name: "Vitamin D3 600,000 IU/ml", form: "Liquid Injection", strength: "600,000 IU/ml", packaging: "10*1ml" },
+    { name: "Vitamin D3 800 IU/ml", form: "Drops", strength: "800 IU/ml", packaging: "10ml with dropper" },
+    { name: "Vitamin D3 800 IU/ml", form: "Drops", strength: "800 IU/ml", packaging: "30ml with dropper" },
+    { name: "Cholecalciferol (Vitamin D3) 60,000 IU/5ml (Butterscotch Flavour)", form: "Liquid", strength: "60,000 IU/5ml", packaging: "4 Bottles" },
+    { name: "Cholecalciferol (Vitamin D3) 60,000 IU/5ml (Mango flavour)", form: "Liquid", strength: "60,000 IU/5ml", packaging: "4 Bottles" },
+    { name: "Vitamin C 500 mg Chewable tablet", form: "Tablet", strength: "500 mg", packaging: "10*15 Strip" },
+    { name: "Omega 3-fatty acid, Green tea extract, Ginkgo biloba, ginseng, grape seed extract, antioxidants, vitamins and minerals", form: "Soft Gelatin Capsule", strength: "Omega 3-fatty acid, Green tea extract, Ginkgo biloba, ginseng, grape seed extract, antioxidants, vitamins and minerals", packaging: "10*1*10" },
+    { name: "Ferrous Ascorbate 30mg, Folic Acid 500 mcg", form: "Oral Suspension", strength: "30mg + 500 mcg", packaging: "150ml" },
+    { name: "Coral Calcium 225mg + Methylcobalamin 1500 mg + Vit.B6 mg + Vitamin D3 250 IU + Folic Acid 1.5 mg", form: "Soft Gelatin Capsule", strength: "225mg + 1500 mg + Vit.B6 mg + 250 IU + 1.5 mg", packaging: "10*1*10" },
+    { name: "Elemental iron (Carbonly Iron) 100mg + Zinc Sulphate 22.5mg + Folic Acid 1.5mg", form: "Capsule", strength: "100mg + 22.5mg + 1.5mg", packaging: "15*10" },
+    { name: "Methylcobalamin 1500 mcg, Alpha Lipoic Acid 100mg, Pyridoxine 3mg, Folic Acid 1.5mg", form: "Capsule", strength: "1500 mcg + 100mg + 3mg + 1.5mg", packaging: "10*10 ALU" },
+    { name: "Methylcobalamin 1500 mcg, Alpha Lipoic Acid 100mg, Vitamin D3 1000 IU, Pyridoxine 3mg, Folic Acid 1.5mg", form: "Tablet", strength: "1500 mcg + 100mg + 1000 IU + 3mg + 1.5mg", packaging: "10*10 ALU" },
+    { name: "Methylcobalamin 1500 mcg, Alpha Lipoic Acid USP 100mg, Folic Acid IP 1.5 mg, Pyridoxine HCI IP 3mg, Vitamin D3 IP 1000 IU", form: "Soft Gelatin Capsule", strength: "1500 mcg + 100mg + 1.5 mg + 3mg + 1000 IU", packaging: "10*1*10" },
+    { name: "Methylcobalamin 750 mcg, Pregabalin 75 mg, Alpha Lipoic Acid 100mg, Pyridoxine 3mg, Folic Acid 1.5mg", form: "Capsule", strength: "750 mcg + 75 mg + 100mg + 3mg + 1.5mg", packaging: "10*10 ALU" },
+    { name: "Co-enzyme Q 10 100mg + Methylcobalamin 1500 + Carnitine L-Tartrate 50 mg + L-Arginine 100mg + Lycopene 6% 4000 mcg + Selenium Dioxide 100 mcg + Omega 3 fatty acid 150 mg", form: "Soft Gelatin Capsule", strength: "100mg + 1500 + 50 mg + 100mg + 4000 mcg + 100 mcg + 150 mg", packaging: "3*1*10" },
+    { name: "Multivitamins & Multimineral", form: "Oral Suspension", strength: "Multivitamins & Multimineral", packaging: "200ml" },
+    { name: "Ginseng with Multivitamin, Multiminerals", form: "Soft Gelatin Capsule", strength: "Ginseng with Multivitamin, Multiminerals", packaging: "10*1*10" },
+    { name: "Protein, Calcium, Vitamins, Lycopene, Folic acid, Biotin, Iron & DHA", form: "Protein Powder", strength: "Protein, Calcium, Vitamins, Lycopene, Folic acid, Biotin, Iron & DHA", packaging: "200gm" },
+    { name: "L-Arginine IP 3 gm + Proanthocyanidin 75 mg", form: "Sachet", strength: "3 gm + 75 mg", packaging: "10 sachet" }
+],
+            "Dermatology": [
+    { name: "Aloe vera + Vitamin E moisturising lotion", form: "Lotion", strength: "", packaging: "100ml" },
+    { name: "Ciprofloxacin 1% + Metronidazole 1% + Terbinafine 1% + Clobetasol 0.05%", form: "Cream", strength: "1% + 1% + 1% + 0.05%", packaging: "15gm" },
+    { name: "Eberconazole 1%", form: "Cream", strength: "1%", packaging: "50gm" },
+    { name: "Calamine 15.0% + Zinc Oxide 5% + Bentonite 3% + Sodium Citrate 0.5% + Liquified Phenol 0.5% + Glycerin 5%", form: "Lotion", strength: "15.0% + 5% + 3% + 0.5% + 0.5% + 5%", packaging: "100gm" },
+    { name: "Clotrimazole 1% w/w", form: "Dusting Powder", strength: "1% w/w", packaging: "100gm" },
+    { name: "Clotrimazole 1% + Beclomethasone 0.025%", form: "Cream", strength: "1% + 0.025%", packaging: "15gm" },
+    { name: "Clindamycin 1.00% + Nicotinamide 4.00%", form: "Gel", strength: "1.00% + 4.00%", packaging: "15gm" },
+    { name: "Clobetasol 0.05% + Neomycin 0.1% + Tolnaftate 1.0% + Ketoconazole 2% + Iodochlorohydroxyquinoline 1%", form: "Cream", strength: "0.05% + 0.1% + 1.0% + 2% + 1%", packaging: "15gm" },
+    { name: "Ketoconazole I.P 20gm, Iodochlorhydroxyquinoline I.P 10mg, Tolnaftate I.P 10mg, Neomycin Sulphate 1mg, Clobetasol Propionate 0.05mg, Dexpanthenol U.S.P 0.5mg", form: "Cream", strength: "I.P 20gm, I.P 10mg, I.P 10mg, 1mg, 0.05mg, U.S.P 0.5mg", packaging: "15gm" },
+    { name: "Clobetasol 0.05% with Salicylic Acid 6% w/w", form: "Cream", strength: "0.05% + 6% w/w", packaging: "20gm" },
+    { name: "Terbinafine Hydrochloride 1% w/w", form: "Cream", strength: "1% w/w", packaging: "15gm" },
+    { name: "Terbinafine 250 mg", form: "Tablet", strength: "250 mg", packaging: "10*7 Blister" },
+    { name: "Terbinafine 550 mg", form: "Tablet", strength: "550 mg", packaging: "10*7 Blister" },
+    { name: "Mometasone Furoate 0.10%", form: "Cream", strength: "0.10%", packaging: "15gm" },
+    { name: "Ofloxacin 0.75% + Ornidazole 2% + Itraconazole 1% + Clobetasol Propionate 0.05%", form: "Cream", strength: "0.75% + 2% + 1% + 0.05%", packaging: "15gm" },
+    { name: "Fluconazole 150 mg", form: "Tablet", strength: "150 mg", packaging: "10*5*2" },
+    { name: "Fluconazole 200 mg", form: "Tablet", strength: "200 mg", packaging: "20*5 Blister" },
+    { name: "Fluticasone 0.5%", form: "Cream", strength: "0.5%", packaging: "10gm" },
+    { name: "Fusidic Acid 2%", form: "Cream", strength: "2%", packaging: "10gm" },
+    { name: "Fusidic Acid 2% + Clobetasol 0.5%", form: "Cream", strength: "2% + 0.5%", packaging: "20gm" },
+    { name: "Ketoconazole 2% w/w", form: "Cream", strength: "2% w/w", packaging: "30gm" },
+    { name: "Ketoconazole 2% w/w + Zinc Pyrithione 1% (ZPTO)", form: "Shampoo", strength: "2% w/w + 1%", packaging: "100ml" },
+    { name: "Ketoconazole 2%", form: "Soap", strength: "2%", packaging: "75gm" },
+    { name: "Luliconazole 1% w/w tray pack", form: "Cream", strength: "1% w/w", packaging: "30gm" },
+    { name: "Permethrin 5% w/w", form: "Cream", strength: "5% w/w", packaging: "30gm" },
+    { name: "Hydroquinone 2% w/w + Mometasone 0.1% w/w + Tretinoin 0.025% w/w", form: "Cream", strength: "2% w/w + 0.1% w/w + 0.025% w/w", packaging: "20gm" },
+    { name: "Mupirocin 2% w/w", form: "Ointment", strength: "2% w/w", packaging: "5gm/10gm" },
+    { name: "Povidone - iodine 5%", form: "Solution", strength: "5%", packaging: "100ml" },
+    { name: "Povidone - iodine 5% + Tinidazole 1% + Sucralfate 7%", form: "Ointment", strength: "5% + 1% + 7%", packaging: "15gm" },
+    { name: "Isotretinoin 20 mg", form: "Soft Gelatin Capsule", strength: "20 mg", packaging: "10*1*10" },
+    { name: "Isotretinoin 30 mg", form: "Soft Gelatin Capsule", strength: "30 mg", packaging: "10*1*10" },
+    { name: "Tacrolimus 0.01%", form: "Cream", strength: "0.01%", packaging: "10gm" },
+    { name: "Itraconazole 100 mg", form: "Capsule", strength: "100 mg", packaging: "10*1*4 Blister" },
+    { name: "Itraconazole 200 mg", form: "Capsule", strength: "200 mg", packaging: "10*10 ALU" },
+    { name: "Itraconazole 100 mg", form: "Capsule", strength: "100 mg", packaging: "10*10 ALU" },
+    { name: "Itraconazole 50 mg", form: "Capsule", strength: "50 mg", packaging: "10*10 ALU" }
+],
+            "Orthopaedic": [
+            { name: "Tramadol + Paracetamol", form: "Tablet", strength: "Tramadol 37.50 mg + Paracetamol 325 mg", packaging: "20*10 Blister" },
+    { name: "Trypsin-Chymotrypsin", form: "Tablet", strength: "1,00,000 Armour Units", packaging: "10*10 ALU" },
+    { name: "Trypsin-Chymotrypsin", form: "Tablet", strength: "2,00,000 Armour Units", packaging: "10*10 ALU" },
+    { name: "Trypsin-Chymotrypsin + Aceclofenac + Paracetamol", form: "Tablet", strength: "Trypsin-Chymotrypsin 50,000 Armour Units + Aceclofenac 100 mg + Paracetamol 325 mg", packaging: "10*10 Blister" },
+    { name: "Trypsin-Chymotrypsin + Aceclofenac + Paracetamol", form: "Tablet", strength: "Trypsin-Chymotrypsin 150,000 Armour Units + Aceclofenac 100 mg + Paracetamol 325 mg", packaging: "10*10 Blister" },
+    { name: "Aceclofenac + Menthol + Methyl Salicylate + Capsaicin + Oleum Lini", form: "Gel", strength: "Aceclofenac 1.5% + Menthol 5% + Methyl Salicylate 10% + Capsaicin 0.01% + Oleum Lini 3%", packaging: "30gm" },
+    { name: "Aceclofenac + Paracetamol + Chlorzoxazone", form: "Tablet", strength: "Aceclofenac 100 MG + Paracetamol 325mg + Chlorzoxazone 250mg", packaging: "10*10 Blister" },
+    { name: "Aceclofenac + Paracetamol", form: "Suspension", strength: "Aceclofenac 50 MG + Paracetamol 125mg", packaging: "60ml" },
+    { name: "Aceclofenac + Paracetamol (White Tablet)", form: "Tablet", strength: "Aceclofenac 100 MG + Paracetamol 325 mg", packaging: "10*10 Blister" },
+    { name: "Aceclofenac + Paracetamol + Serratiopeptidase", form: "Tablet", strength: "Aceclofenac 100 MG + Paracetamol 325mg + Serratiopeptidase 15 mg", packaging: "10*10 ALU" },
+    { name: "Collagen Peptide + Glucosamine + Vitamin C", form: "Sachet", strength: "Collagen Peptide 9gm + Glucosamine 450mg + Vitamin C 75mg", packaging: "10gm" },
+    { name: "Chondroitin + Collagen Peptide + Sodium Hyaluronate + Vitamin C + Rosehip Extract", form: "Tablet", strength: "Chondroitin 200mg + Collagen Peptide (Type I, II, V, X) 200mg + Sodium Hyaluronate 75mg + Vitamin C 50mg + Rosehip Extract 10mg", packaging: "10*15 Blister" },
+    { name: "Curcumin + Piperine", form: "Soft Gelatin Capsule", strength: "Curcumin 300 mg + Piperine 5 mg", packaging: "10*10 ALU" },
+    { name: "Mefenamic Acid + Paracetamol", form: "Tablet", strength: "Mefenamic Acid 250 MG + Paracetamol 325 mg", packaging: "10*10 Blister" },
+    { name: "Dicyclomine + Mefenamic Acid + Simethicone", form: "Tablet", strength: "Dicyclomine 20 mg + Mefenamic Acid 250 mg + Simethicone 40 mg", packaging: "10*10 Blister" },
+    { name: "Ibuprofen + Paracetamol + Serratiopeptidase", form: "Tablet", strength: "Ibuprofen 400 mg + Paracetamol 325mg + Serratiopeptidase 10 mg", packaging: "10*10 Blister" },
+    { name: "Febuxostat", form: "Tablet", strength: "Febuxostat 40mg", packaging: "10*10 ALU" },
+    { name: "Diclofenac Diethylamine + Linseed Oil + Methyl Salicylate + Menthol", form: "Spray", strength: "Diclofenac Diethylamine 1.16% w/w + Linseed Oil 3.0% w/w + Methyl Salicylate 10.0% w/w + Menthol 5% w/w", packaging: "55gm" },
+    { name: "Diclofenac Sodium + Linseed Oil + Methyl Salicylate + Menthol", form: "Gel", strength: "Diclofenac Sodium 1% + Linseed Oil 3% + Methyl Salicylate 10% + Menthol 5%", packaging: "30gm" },
+    { name: "Diclofenac + Paracetamol + Chlorzoxazone", form: "Tablet", strength: "Diclofenac 50mg + Paracetamol 325mg + Chlorzoxazone 250mg", packaging: "10*10 Blister" },
+    { name: "Diclofenac + Paracetamol + Serratiopeptidase", form: "Tablet", strength: "Diclofenac 50mg + Paracetamol 325mg + Serratiopeptidase 15 mg", packaging: "10*10 Blister" },
+    { name: "Diacerein + Methylsulphonylmethane + Glucosamine", form: "Tablet", strength: "Diacerein 50mg + Methylsulphonylmethane 250mg + Glucosamine 750mg", packaging: "10*10 ALU" },
+    { name: "Boswellia Serrata + Rosehip Extract + Curcuma longa Extract", form: "Tablet", strength: "Boswellia Serrata 100 mg + Rosehip Extract 750mg + Curcuma longa Extract 400 mg", packaging: "10*10 ALU" },
+    { name: "Ketorolac", form: "Tablet", strength: "Ketorolac 10 mg", packaging: "10*15 ALU" },
+    { name: "Baclofen", form: "Tablet", strength: "Baclofen 10mg", packaging: "20*10 Blister" },
+    { name: "Thiocolchicoside + Aceclofenac", form: "Tablet", strength: "Thiocolchicoside 8mg + Aceclofenac 100mg", packaging: "10*10 ALU" },
+    { name: "Thiocolchicoside + Aceclofenac + Paracetamol", form: "Tablet", strength: "Thiocolchicoside 4mg + Aceclofenac 100mg + Paracetamol 325mg", packaging: "10*10 ALU" },
+    { name: "Diclofenac Sodium + Linseed Oil + Thiocolchicoside + Methyl Salicylate + Menthol", form: "Gel", strength: "Diclofenac Sodium 1%, Linseed Oil 3%, Thiocolchicoside 0.125%, Methyl Salicylate 10%, Menthol 5%", packaging: "30gm" },
+    { name: "Nimesulide + Paracetamol", form: "Tablet", strength: "Nimesulide 100mg + Paracetamol 325mg", packaging: "20*10 Blister" },
+    { name: "Sulfasalazine", form: "Tablet", strength: "Sulfasalazine 500 mg", packaging: "10*15 Blister" },
+    { name: "Rosehip extract + Collagen Peptide + Sodium Hyaluronate + Vitamin C + Chondroitin", form: "Soft Gelatin Capsule", strength: "Rosehip extract 250mg + Collagen Peptide 40 mg + Sodium Hyaluronate 30 mg + Vitamin C 35 mg + Chondroitin 200 mg", packaging: "10*10 ALU" },
+    { name: "Drotaverine + Mefenamic Acid", form: "Tablet", strength: "Drotaverine 80 mg + Mefenamic Acid 250mg", packaging: "10*10 Blister" },
+    { name: "Serratiopeptidase + Diclofenac Potassium", form: "Tablet", strength: "Serratiopeptidase 10mg + Diclofenac Potassium 50mg", packaging: "10*10 ALU" },
+    { name: "Serratiopeptidase", form: "Tablet", strength: "Serratiopeptidase 20mg", packaging: "10*10 ALU" },
+    { name: "Tramadol + Diclofenac + Methyl Salicylate + Linseed Oil + Menthol", form: "Gel", strength: "Tramadol 0.5% + Diclofenac 1.16% + Methyl salicylate 10% + Linseed Oil 3% + Menthol 5%", packaging: "30gm" },
+    { name: "Etodolac Extended Release", form: "Tablet", strength: "Etodolac 400 mg", packaging: "10*10 ALU" },
+    { name: "Etodolac + Thiocolchicoside", form: "Tablet", strength: "Etodolac 400 mg + Thiocolchicoside 4 mg", packaging: "10*10 ALU" },
+    { name: "Etodolac + Paracetamol", form: "Tablet", strength: "Etodolac 400mg + Paracetamol 325mg", packaging: "10*10 ALU" },
+    { name: "Etoricoxib", form: "Tablet", strength: "Etoricoxib 90mg", packaging: "10*10 ALU" },
+    { name: "Etoricoxib", form: "Tablet", strength: "Etoricoxib 120mg", packaging: "10*10 ALU" },
+    { name: "Etoricoxib + Thiocolchicoside", form: "Tablet", strength: "Etoricoxib 60mg + Thiocolchicoside 4mg", packaging: "10*10 ALU" },
+    { name: "Etoricoxib + Thiocolchicoside", form: "Tablet", strength: "Etoricoxib 60mg + Thiocolchicoside 8mg", packaging: "10*10 Blister" },
+    { name: "Trypsin + Bromelain + Rutoside", form: "Tablet", strength: "Trypsin 48mg + Bromelain 90mg + Rutoside 100mg", packaging: "10*10 ALU" },
+    { name: "Trypsin + Bromelain + Rutoside + Diclofenac Sodium", form: "Tablet", strength: "Trypsin 48mg + Bromelain 90mg + Rutoside 100mg + Diclofenac Sodium 50 mg", packaging: "10*10 ALU" },
+    { name: "Ivabradine", form: "Tablet", strength: "Ivabradine 5mg", packaging: "10*10 ALU" },
+    { name: "Losartan Potassium", form: "Tablet", strength: "Losartan Potassium 25 mg", packaging: "10x10 ALU" },
+    { name: "Losartan Potassium", form: "Tablet", strength: "Losartan Potassium 50 mg", packaging: "10x10 ALU" },
+    { name: "Losartan Potassium + Hydrochlorothiazide", form: "Tablet", strength: "Losartan Potassium 50 mg + Hydrochlorothiazide 12.5 mg", packaging: "10x10 ALU" },
+    { name: "Rosuvastatin Calcium (Rosuvastatin)", form: "Tablet", strength: "Rosuvastatin 10 mg", packaging: "10x10 ALU" },
+    { name: "Rosuvastatin Calcium (Rosuvastatin)", form: "Tablet", strength: "Rosuvastatin 20 mg", packaging: "10x10 ALU" },
+    { name: "Rosuvastatin + Aspirin + Clopidogrel", form: "Tablet", strength: "Rosuvastatin 10mg + Aspirin 75mg + Clopidogrel 75 mg", packaging: "10x10 ALU" },
+    { name: "Rosuvastatin + Aspirin + Clopidogrel", form: "Tablet", strength: "Rosuvastatin 20mg + Aspirin 75mg + Clopidogrel 75 mg", packaging: "10x10 ALU" },
+    { name: "Atorvastatin", form: "Tablet", strength: "Atorvastatin 10 mg", packaging: "10x10 ALU" },
+    { name: "Atorvastatin", form: "Tablet", strength: "Atorvastatin 20 mg", packaging: "10x10 ALU" },
+    { name: "Atorvastatin", form: "Tablet", strength: "Atorvastatin 40 mg", packaging: "10x10 ALU" },
+    { name: "Atorvastatin + Aspirin", form: "Capsule", strength: "Atorvastatin 10mg + Aspirin 150 mg", packaging: "10*10 ALU" },
+    { name: "Atorvastatin + Aspirin", form: "Capsule", strength: "Atorvastatin 10mg + Aspirin 75 mg", packaging: "10*10 ALU" },
+    { name: "Atorvastatin + Aspirin + Clopidogrel", form: "Capsule", strength: "Atorvastatin 10mg + Aspirin 75 mg + Clopidogrel 75mg", packaging: "10*10 ALU" },
+    { name: "Atorvastatin + Aspirin + Clopidogrel", form: "Tablet", strength: "Atorvastatin 20mg + Aspirin 75 mg + Clopidogrel 75 mg", packaging: "10*10 ALU" },
+    { name: "Ticagrelor", form: "Tablet", strength: "Ticagrelor 90mg", packaging: "10*14 ALU" },
+    { name: "Amlodipine", form: "Tablet", strength: "Amlodipine 5 mg", packaging: "10x10 ALU" },
+    { name: "Metoprolol Extended Release", form: "Tablet", strength: "Metoprolol 25 mg", packaging: "10*10 ALU" },
+    { name: "Metoprolol Extended Release", form: "Tablet", strength: "Metoprolol 50 mg", packaging: "10*10 ALU" },
+    { name: "Telmisartan", form: "Tablet", strength: "Telmisartan 20 mg", packaging: "10*10 ALU" },
+    { name: "Telmisartan", form: "Tablet", strength: "Telmisartan 40 mg", packaging: "10*10 ALU" },
+    { name: "Telmisartan + Amlodipine", form: "Tablet", strength: "Telmisartan 40 mg + Amlodipine 5 mg", packaging: "10*10 ALU" },
+    { name: "Telmisartan + Hydrochlorothiazide", form: "Tablet", strength: "Telmisartan 40 mg + Hydrochlorothiazide 12.5 mg", packaging: "10*10 ALU" },
+    { name: "Telmisartan + Metoprolol", form: "Tablet", strength: "Telmisartan 40 mg + Metoprolol 25/50 mg", packaging: "10*10 ALU" },
+    { name: "Nitroglycerin (controlled release)", form: "Tablet", strength: "Nitroglycerin 2.6 mg", packaging: "30 Tabs bottle" }
+],
+            "Anti - Diabetic": [
+    { name: "Glimepiride 1 mg + Metformin 500 SR mg (Bilayered)", form: "Tablet", strength: "Glimepiride 1 mg + Metformin 500 SR mg", packaging: "10*10 Blister" },
+    { name: "Glimepiride 1 mg + Metformin HCL 1000 mg (ER) (Bilayered)", form: "Tablet", strength: "Glimepiride 1 mg + Metformin HCL 1000 mg (ER)", packaging: "10*10 Blister" },
+    { name: "Glimepiride 2 mg + Metformin 500 SR mg (Bilayered)", form: "Tablet", strength: "Glimepiride 2 mg + Metformin 500 SR mg", packaging: "10*10 Blister" },
+    { name: "Dapagliflozin 10 mg", form: "Tablet", strength: "Dapagliflozin 10 mg", packaging: "10*14" },
+    { name: "Dapagliflozin 5 mg", form: "Tablet", strength: "Dapagliflozin 5 mg", packaging: "10*14" },
+    { name: "Dapagliflozin 10 mg + Metformin (ER) 1000 mg", form: "Tablet", strength: "Dapagliflozin 10 mg + Metformin (ER) 1000 mg", packaging: "10*10 ALU" },
+    { name: "Vildagliptin 50 mg", form: "Tablet", strength: "Vildagliptin 50 mg", packaging: "10*10 ALU" },
+    { name: "Vildagliptin 50 mg + Metformin 500 mg", form: "Tablet", strength: "Vildagliptin 50 mg + Metformin 500 mg", packaging: "10*10 ALU" },
+    { name: "Gliclazide 80 mg + Metformin 500 mg", form: "Tablet", strength: "Gliclazide 80 mg + Metformin 500 mg", packaging: "10*10 ALU" },
+    { name: "Metformin HCL 1000 mg Sustained Release", form: "Tablet", strength: "Metformin HCL 1000 mg Sustained Release", packaging: "10*10 Blister" },
+    { name: "Metformin HCL 500 mg Sustained Release", form: "Tablet", strength: "Metformin HCL 500 mg Sustained Release", packaging: "10*10 Blister" },
+    { name: "Voglibose 0.2 mg", form: "Tablet", strength: "Voglibose 0.2 mg", packaging: "10*10 ALU" },
+    { name: "Voglibose 0.3 mg", form: "Tablet", strength: "Voglibose 0.3 mg", packaging: "10*10 ALU" },
+    { name: "Teneligliptin 20 mg", form: "Tablet", strength: "Teneligliptin 20 mg", packaging: "10*10 ALU" },
+    { name: "Teneligliptin 20 mg + Metformin 500 mg SR", form: "Tablet", strength: "Teneligliptin 20 mg + Metformin 500 mg SR", packaging: "10*10 ALU" }
+],
+            "Ear, Eye, Nasal": [
+    { name: "Potassium Iodide 3.3% + Sodium Chloride 0.83% + Calcium Chloride 1% + Chlorbutol 0.5%", form: "Eye Drops", strength: "Potassium Iodide 3.3% + Sodium Chloride 0.83% + Calcium Chloride 1% + Chlorbutol 0.5%", packaging: "10ML" },
+    { name: "Sodium Carboxymethyl Cellulose 0.5%, Stabilized Oxychloro Complex 0.0075%", form: "Eye Drops", strength: "Sodium Carboxymethyl Cellulose 0.5%, Stabilized Oxychloro Complex 0.0075%", packaging: "10ML" },
+    { name: "Benzocaine 2.7% + Chlorbutol 5% + Turpentine Oil 15% + Para Dichlorobenzene 2.0%", form: "Ear Drops", strength: "Benzocaine 2.7% + Chlorbutol 5% + Turpentine Oil 15% + Para Dichlorobenzene 2.0%", packaging: "10ML" },
+    { name: "Gentamicin 0.3% w/v + Lignocaine 2.9% w/v + Clotrimazole 1% w/v + Beclomethasone 0.025% w/v", form: "Ear Drops", strength: "Gentamicin 0.3% w/v + Lignocaine 2.9% w/v + Clotrimazole 1% w/v + Beclomethasone 0.025% w/v", packaging: "5ML" },
+    { name: "Moxifloxacin 0.5%", form: "Eye Drops", strength: "Moxifloxacin 0.5%", packaging: "5ML" },
+    { name: "Moxifloxacin 0.5% + Dexamethasone 0.1%", form: "Eye Drops", strength: "Moxifloxacin 0.5% + Dexamethasone 0.1%", packaging: "5ML" },
+    { name: "Moxifloxacin 0.5% + Prednisolone 1%", form: "Eye Drops", strength: "Moxifloxacin 0.5% + Prednisolone 1%", packaging: "5ML" },
+    { name: "Tobramycin 0.3%", form: "Eye Drops", strength: "Tobramycin 0.3%", packaging: "5ML" }
+],
+            "Dental": [
+    { name: "Clotrimazole 1% w/v", form: "Mouth Paint", strength: "Clotrimazole 1% w/v", packaging: "15ml" },
+    { name: "Diclofenac 50mg + Paracetamol 325mg + Serratiopeptidase 15 mg", form: "Tablet", strength: "Diclofenac 50mg + Paracetamol 325mg + Serratiopeptidase 15 mg", packaging: "10*10 Blister" },
+    { name: "Ofloxacin 200mg + Ornidazole 500mg", form: "Tablet", strength: "Ofloxacin 200mg + Ornidazole 500mg", packaging: "10*10 Blister" },
+    { name: "Ofloxacin 200mg + Ornidazole 500mg + Lactic Acid Bacillus 120 Million Spores", form: "Tablet", strength: "Ofloxacin 200mg + Ornidazole 500mg + Lactic Acid Bacillus 120 Million Spores", packaging: "10*10 ALU" },
+    { name: "Aciclovir 800mg", form: "Tablet", strength: "Aciclovir 800mg", packaging: "10*10 ALU" },
+    { name: "Ketorolac 10mg", form: "Tablet", strength: "Ketorolac 10mg", packaging: "10*10 ALU" },
+    { name: "Potassium Nitrate 5% + Sodium Monofluorophosphate 0.7% + Triclosan 0.30%", form: "Tooth Gel", strength: "Potassium Nitrate 5% + Sodium Monofluorophosphate 0.7% + Triclosan 0.30%", packaging: "50gm" },
+    { name: "Chlorhexidine Gluconate 0.2% w/v", form: "Mouthwash", strength: "Chlorhexidine Gluconate 0.2% w/v", packaging: "100ml" },
+    { name: "Tannic Acid 2% + Zinc Chloride 1% + Cetrimide 0.1% + Lignocaine 1%", form: "Gum Paint", strength: "Tannic Acid 2% + Zinc Chloride 1% + Cetrimide 0.1% + Lignocaine 1%", packaging: "15ml" }
+],
+            "Anti Cold & Coughs": [
+    { name: "Amoxycillin 500 mg + Lactic Acid Bacillus", form: "Capsule", strength: "500 mg + Lactic Acid Bacillus", packaging: "10*10 Blister" },
+    { name: "Amoxycillin 200mg + Clavulanic acid 28.50mg", form: "Dry Oral Suspension", strength: "200mg + Clavulanic acid 28.50mg", packaging: "30ml" },
+    { name: "Amoxycillin 250mg + Clavulanic acid 125mg", form: "Tablet", strength: "250mg + Clavulanic acid 125mg", packaging: "10*6 STRIP" },
+    { name: "Amoxycillin 500mg + Clavulanic acid 125mg", form: "Tablet", strength: "500mg + Clavulanic acid 125mg", packaging: "10*10 ALU" },
+    { name: "Amoxycillin 500mg + Clavulanic acid 125mg + Lactic Acid Bacillus", form: "Tablet", strength: "500mg + Clavulanic acid 125mg + Lactic Acid Bacillus", packaging: "10*10 STRIP" },
+    { name: "Azithromycin 250 mg", form: "Tablet", strength: "250 mg", packaging: "10*6 Blister" },
+    { name: "Azithromycin 500 mg", form: "Tablet", strength: "500 mg", packaging: "10*5 Blister" },
+    { name: "Clindamycin 300mg", form: "Capsule", strength: "300mg", packaging: "10*10 Blister" },
+    { name: "Nitrofurantoin 100mg Sustained Release", form: "Tablet", strength: "100mg Sustained Release", packaging: "10*10 Blister" },
+    { name: "Faropenem Sodium 200 mg", form: "Tablet", strength: "200 mg", packaging: "10*1*6 ALU" },
+    { name: "Cefixime 200mg", form: "Tablet", strength: "200mg", packaging: "10*10 ALU" },
+    { name: "Cefixime 50mg /5ml With Water", form: "Dry Oral Suspension", strength: "50mg /5ml", packaging: "30ml" },
+    { name: "Aciclovir 800mg", form: "Tablet", strength: "800mg", packaging: "10*10 ALU" },
+    { name: "Ivermectin 12mg", form: "Tablet", strength: "12mg", packaging: "10*10 ALU" },
+    { name: "Levofloxacin 500mg", form: "Tablet", strength: "500mg", packaging: "20*5 Blister" },
+    { name: "Rifaximin 550 mg", form: "Tablet", strength: "550 mg", packaging: "10*10 ALU" },
+    { name: "Cefuroxime Axetil 500mg", form: "Tablet", strength: "500mg", packaging: "10*1*6 ALU" },
+    { name: "Cefuroxime 500 mg + Clavulanic Acid 125 mg", form: "Tablet", strength: "500 mg + Clavulanic Acid 125 mg", packaging: "10*1*6 ALU" },
+    { name: "Doxycycline 100mg + Lactic Acid Bacillus", form: "Capsule", strength: "100mg + Lactic Acid Bacillus", packaging: "10*10 Blister" },
+    { name: "Linezolid 600 mg", form: "Tablet", strength: "600 mg", packaging: "10*1*6 ALU" },
+    { name: "Fexofenadine 120mg", form: "Tablet", strength: "120mg", packaging: "10*10 ALU" },
+    { name: "Fexofenadine 180mg", form: "Tablet", strength: "180mg", packaging: "10*10 ALU" },
+    { name: "Fexofenadine 60 mg + Montelukast 4 mg", form: "Suspension", strength: "60 mg + Montelukast 4 mg", packaging: "60ml" },
+    { name: "Bilastine 20 mg", form: "Tablet", strength: "20 mg", packaging: "10*10 ALU" },
+    { name: "Bilastine 20 mg + Montelukast 10 mg", form: "Tablet", strength: "20 mg + Montelukast 10 mg", packaging: "10*10 ALU" },
+    { name: "Dextromethorphan HBr IP 5mg + Ammonium Chloride IP 50mg + Bromhexine HCI IP 4mg + Menthol IP 2.5mg", form: "Oral Suspension", strength: "Dextromethorphan HBr IP 5mg + Ammonium Chloride IP 50mg + Bromhexine HCI IP 4mg + Menthol IP 2.5mg", packaging: "100ml" },
+    { name: "Desloratadine 5mg + Montelukast 10 mg", form: "Tablet", strength: "5mg + Montelukast 10 mg", packaging: "10*10 ALU" },
+    { name: "Mometasone 50 mcg Aqueous Nasal Spray IP", form: "Nasal Spray", strength: "50 mcg", packaging: "100 Metered Dose" },
+    { name: "Fluticasone Furoate 27.5mcg", form: "Nasal Spray", strength: "27.5mcg", packaging: "120 Metered Dose" },
+    { name: "Fluticasone Propionate 50 Mcg/Metered Spray", form: "Nasal Spray", strength: "50 Mcg/Metered Spray", packaging: "120 Metered Dose" },
+    { name: "Formoterol fumarate 6mcg + Budesonide 200mcg", form: "Capsule", strength: "6mcg + 200mcg", packaging: "120 MDI" },
+    { name: "Formoterol fumarate 6mcg + Budesonide 400mcg", form: "Capsule", strength: "6mcg + 400mcg", packaging: "120 MDI" },
+    { name: "Paracetamol 650MG", form: "Tablet", strength: "650MG", packaging: "10*10 Blister" },
+    { name: "Paracetamol 1000 mg", form: "I.V. Infusion", strength: "1000 mg", packaging: "100 ml FFS with Box" },
+    { name: "Acetylcysteine 600 MG Effervescent Tablet - Sugar free (Orange Flavoured)", form: "Tablet", strength: "600 MG", packaging: "20 Tabs (tube bottle)" },
+    { name: "Dextromethorphan 10 mg + Chlorpheniramine maleate 2 mg + Phenylephrine 5 mg", form: "Oral Suspension", strength: "Dextromethorphan 10 mg + Chlorpheniramine maleate 2 mg + Phenylephrine 5 mg", packaging: "100ml with box" },
+    { name: "Hydrochloroquine 200 mg", form: "Tablet", strength: "200 mg", packaging: "10*15 Blister" },
+    { name: "Xylometazoline HCL. 0.1%", form: "Nasal Drops", strength: "0.1%", packaging: "10ml" },
+    { name: "Xylometazoline HCL. 0.05%", form: "Nasal Drops", strength: "0.05%", packaging: "10ml" },
+    { name: "Sodium chloride 0.69%w/v", form: "Nasal Drops", strength: "0.69%w/v", packaging: "10ml" },
+    { name: "Camphor 25mg + Chlorothymol 5mg + Eucalyptol 125mg + Menthol 55mg + Terpineol 120mg", form: "Soft Gelatin Capsule", strength: "Camphor 25mg + Chlorothymol 5mg + Eucalyptol 125mg + Menthol 55mg + Terpineol 120mg", packaging: "20*10 Blister" },
+    { name: "Levocetirizine 2.5 mg", form: "Oral Suspension", strength: "2.5 mg", packaging: "60 ml with box" },
+    { name: "Levocetirizine 5mg", form: "Tablet", strength: "5mg", packaging: "20*10 Blister" },
+    { name: "Levocetirizine 10mg", form: "Tablet", strength: "10mg", packaging: "10*10 Blister" },
+    { name: "Levocetirizine 5 mg + Ambroxol 60 mg", form: "Tablet", strength: "5 mg + Ambroxol 60 mg", packaging: "10*10 Blister" },
+    { name: "Levocetirizine 5mg + Montelukast 10mg (Adult)", form: "Tablet", strength: "5mg + Montelukast 10mg", packaging: "10*10 ALU" },
+    { name: "Ambroxol Hydrochloride 15 mg, Guaiphenesin IP 50 mg, Levosalbutamol 0.5 mg", form: "Oral Suspension", strength: "Ambroxol Hydrochloride 15 mg, Guaiphenesin IP 50 mg, Levosalbutamol 0.5 mg", packaging: "60ml with box" }
+],
+            "Gynaecology, Women's health, Infertility": [
+    { name: "Tranexamic acid 500 mg", form: "Tablet", strength: "500 mg", packaging: "10*10 ALU" },
+    { name: "Tranexamic acid 500 mg + Mefenamic acid 250 mg", form: "Tablet", strength: "500 mg + 250 mg", packaging: "10*10 ALU/Blister" },
+    { name: "Medroxy Progesterone Acetate 10 mg", form: "Tablet", strength: "10 mg", packaging: "10*10 ALU" },
+    { name: "Doxylamine Succinate 10 mg & Pyridoxine Hydrochloride 10 mg & Folic Acid 2.5 mg", form: "Tablet", strength: "10 mg + 10 mg + 2.5 mg", packaging: "10*10" },
+    { name: "Doxylamine Succinate 20 mg + Pyridoxine Hydrochloride 20 mg + Folic Acid 5 mg", form: "Tablet", strength: "20 mg + 20 mg + 5 mg", packaging: "10*10" },
+    { name: "Combikit of 1 Tab Fluconazole 150 mg + 1 Tab Azithromycin 1 gm + 2 Tabs Secnidazole 1 gm", form: "Tablet", strength: "150 mg + 1 gm + 1 gm", packaging: "10 Kits" },
+    { name: "Vitamin E 400 IU + Wheat Germ Oil 100 mg + Omega 3 Fatty Acid 30 mg", form: "Soft Gelatin Capsule", strength: "400 IU + 100 mg + 30 mg", packaging: "10*1*10" },
+    { name: "Letrozole", form: "Tablet", strength: "20*5", packaging: "Blister" },
+    { name: "Ferrous Ascorbate 100 mg + Folic Acid 1.5 mg + Zinc 7.5 mg", form: "Soft Gelatin Capsule", strength: "100 mg + 1.5 mg + 7.5 mg", packaging: "10*10 ALU" },
+    { name: "Ferrous Ascorbate 100 mg + Folic Acid 1.5 mg + Vitamin D3 1000 IU + Vitamin B12 7.5 mcg + Vitamin B6 1.5 mg", form: "Soft Gelatin Capsule", strength: "100 mg + 1.5 mg + 1000 IU + 7.5 mcg + 1.5 mg", packaging: "10*10 ALU" },
+    { name: "Dydrogesterone 10 mg", form: "Tablet", strength: "10 mg", packaging: "20*1*5 Blister" },
+    { name: "Ofloxacin 200 mg + Ornidazole 500 mg", form: "Tablet", strength: "200 mg + 500 mg", packaging: "10*10 Blister" },
+    { name: "Folic Acid 5 mg", form: "Tablet", strength: "5 mg", packaging: "20*10 Blister" },
+    { name: "Clomiphene Citrate 50 mg", form: "Tablet", strength: "50 mg", packaging: "5*20 Blister" },
+    { name: "Myo-Inositol 600 mg + Metformin Hydrochloride 500 mg Sustained Release", form: "Tablet", strength: "600 mg + 500 mg", packaging: "10*10 ALU" },
+    { name: "Norethisterone 10 mg", form: "Tablet", strength: "10 mg", packaging: "10*10 Blister" },
+    { name: "Norethisterone 5 mg", form: "Tablet", strength: "5 mg", packaging: "10*10 Blister" },
+    { name: "Prulifloxacin 600 mg", form: "Tablet", strength: "600 mg", packaging: "5*1*5" },
+    { name: "Natural Micronised Progesterone 200 mg", form: "Soft Gelatin Capsule", strength: "200 mg", packaging: "10*1*10" },
+    { name: "Natural Micronised Progesterone 200 mg SR", form: "Tablet", strength: "200 mg", packaging: "10*10 ALU" },
+    { name: "Natural Micronised Progesterone 300 mg SR", form: "Tablet", strength: "300 mg", packaging: "10*10 ALU" },
+    { name: "Natural Micronised Progesterone 400 mg", form: "Soft Gelatin Capsule", strength: "400 mg", packaging: "10*1*10" },
+    { name: "Omega 3 Fatty Acid 90 mg + Evening Primrose Oil 1000 mg + Vitamin E 80 IU", form: "Soft Gelatin Capsule", strength: "90 mg + 1000 mg + 80 IU", packaging: "10*10" },
+    { name: "Clindamycin phosphate 100 mg + Clotrimazole 200 mg Vaginal Soft Gelatin Capsule", form: "Soft Gelatin Capsule", strength: "100 mg + 200 mg", packaging: "10*1*7 Blister" },
+    { name: "Clindamycin Phosphate Equivalent To Clindamycin 100 mg + Clotrimazole 100 mg + Tinidazole 100 mg", form: "Soft Gelatin Capsule", strength: "100 mg + 100 mg + 100 mg", packaging: "10*7 Blister" }
+]
+
+        };
+
+        function showProducts(category) {
+            const products = mockData[category];
+            const productDisplay = document.getElementById('product-display');
+
+            let table = `<h2>${category}</h2>
+                         <button onclick="sortTable('asc')">Sort A-Z</button>
+                         <button onclick="sortTable('desc')">Sort Z-A</button>
+                         <table id="product-table">
+                            <thead>
+                                <tr>
+                                    <th onclick="sortTable('asc')">Product Name <span class="sort-arrow sort-asc"></span></th>
+                                    <th>Form</th>
+                                    <th>Packaging</th>
+                                </tr>
+                            </thead>
+                            <tbody>`;
+
+            products.forEach(product => {
+                table += `<tr>
+                            <td>${product.name}</td>
+                            <td>${product.form}</td>
+                            <td>${product.packaging}</td>
+                          </tr>`;
+            });
+
+            table += `</tbody></table>`;
+            productDisplay.innerHTML = table;
+        }
+
+        function sortTable(order) {
+            const table = document.getElementById("product-table").getElementsByTagName("tbody")[0];
+            const rows = Array.from(table.rows);
+
+            rows.sort((a, b) => {
+                const textA = a.cells[0].textContent;
+                const textB = b.cells[0].textContent;
+                if (order === 'asc') {
+                    return textA.localeCompare(textB);
+                } else {
+                    return textB.localeCompare(textA);
                 }
             });
 
-            // Remove highlight from all columns
-            campusCols.forEach(col => col.classList.remove('highlighted'));
-
-            // Add highlight to closest column
-            closest.classList.add('highlighted');
-
-            // Update product display based on centered column
-            updateProductDisplay(closest.querySelector('h3').textContent.trim());
-        }, 50);
-    });
-});
-</script>
-
-        
-        
-        
-        
-        
-        <section class="campus">
-            <h1 style="text-align: left;"><b>Products</b></h1>
-            <p style="text-align: left;">Product categories we offer at MedPrime International</p>
-            <div class="scroll-container">
-                <div class="row" id="scroll-container">
-                    <div class="campus-col">
-                        <img src="images/OTC 2.png">
-                        <div class="layer1">
-                            <h3>Vitamins, Proteins,<br>Calcium,<br>Neutraceuticals</h3>
-                        </div>
-                    </div>
-                    <div class="campus-col">
-                        <img src="images/cat2.jpg">
-                        <div class="layer1">
-                            <h3>Dermatology</h3>
-                        </div>
-                    </div>
-                    <div class="campus-col">
-                        <img src="images/cat3.jpg">
-                        <div class="layer1">
-                            <h3>Orthopaedic</h3>
-                        </div>
-                    </div>
-                    <div class="campus-col">
-                        <img src="images/diab.jpg">
-                        <div class="layer1">
-                            <h3>Anti - Diabetic</h3>
-                        </div>
-                    </div>
-                    <div class="campus-col">
-                        <img src="images/eye (1).jpg">
-                        <div class="layer1">
-                            <h3>Ear, Eye, Nasal</h3>
-                        </div>
-                    </div>
-                    <div class="campus-col">
-                        <img src="images/dental.jpg">
-                        <div class="layer1">
-                            <h3>Dental</h3>
-                        </div>
-                    </div>
-                    <div class="campus-col">
-                        <img src="images/cough.jpg">
-                        <div class="layer1">
-                            <h3>Anti Cold & Coughs</h3>
-                        </div>
-                    </div>
-                    <div class="campus-col">
-                        <img src="images/women.jpg">
-                        <div class="layer1">
-                            <h3>Gynaecology,<br>Women's health,<br>Infertility</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-
-        <section id="product-display">
-            <!-- Product information dynamically displayed here -->
-        </section>
-
-    <section class="facility">
-        <h1 style="padding-bottom: 20px;">Our Team</h1>
-                
-            </div>
-            <div class="row5">
-                <div class="facility-col">
-                    <img src="images/user.jpg">
-                    <h3>Mukesh Jain</h3>
-                    <h2>Director </h2>
-                    <p><a href = "mailto: rachana.shetty283@nmims.edu.in"style="color:#1cac4a; text-decoration:none" >Contact</a>
-                    </p>
-                </div>
-                <div class="facility-col">
-                    <img src="images/user.jpg">
-                    <h3>Mokshit Jain</h3>
-                    <h2>Director / Marketing Head</h2>
-                    <p><a href = "mailto: sehajsingh.bhalla09@nmims.edu.in"style="color:#1cac4a; text-decoration:none" >Contact</a>
-                    </p>
-                </div>
-            </div>
-    </section>
-<!-------- footer ---------->
-
-<section class="footer">
-    <div class="footer-content">
-        <div class="footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="#">Export</a></li>
-                <li><a href="#">Domestic</a></li>
-                <li><a href="#">Contact Us</a></li>
-            </ul>
-        </div>
-        <div class="footer-divider"></div>
-        <div class="footer-info">
-            <h4>Corporate Office Location</h4>
-            <p>SHOP NO.10, GRD FLOOR, SAVANI CHSL,<br>
-            RAJAWADI NAKA, M.G. ROAD,<br>
-            GHATKOPAR EAST, MUMBAI Tal: GHATKOPAR<br>
-            (MUMBAI-ZONE3) Pin: 400077</p>
-            <p>Email: <a href="mailto:info@medprime-international.com" class="footer-link">info@medprime-international.com</a></p>
-            <p>Phone: <a href="tel:+918928291367" class="footer-link">+91 89282 91367</a></p>
-        </div>
-    </div>
-</section>
-
-
-    <!-- JavaScript for toggle menu -->
-    <script>
-        var navLinks = document.getElementById("navLinks");
-
-        function showMenu() {
-            navLinks.style.right = "0";
-        }
-
-        function hideMenu() {
-            navLinks.style.right = "-200px";
+            rows.forEach(row => table.appendChild(row));
         }
     </script>
 </body>
