@@ -370,6 +370,57 @@ h3{
     padding-bottom: 50px;
 }
 /*---------------- campus ----------------*/
+.campus1{
+    width: 80%;
+    margin: auto;
+    text-align: left;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    overflow: hidden; /* Hide scrollbar */
+    white-space: nowrap;
+}
+.campus-col1{
+    flex-basis: 25%;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+}
+.campus-col1 img{
+    width: 100%;
+    border-radius: 0.2rem;
+}
+
+.layer1{
+    background: transparent;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    transition: .5s;
+}
+.layer1:hover{
+    background: black;
+    opacity: 0.6;
+}
+.layer1 h3{
+    width: 100%;
+    font-weight: 500;
+    color: #fff;
+    font-size: 18px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-40%);
+    position: absolute;
+    opacity: 0;
+    transition: .3s;
+    font-size: 60px;
+}
+.layer1:hover h3{
+    bottom: 49%;
+    opacity: 0.6;
+}
 .campus {
     width: 80%;
     margin: auto;
@@ -381,11 +432,16 @@ h3{
 }
 
 .scroll-container {
-    display: flex;
-    align-items: center;
-    position: relative;
-    
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 20px 0;
 }
+
+.row {
+    display: inline-flex;
+    flex-wrap: nowrap;
+}
+
 
 .row {
     display: flex;
@@ -986,26 +1042,14 @@ h3{
     color: #000;
 }
 .campus1{
-    width: 100%;
+    width: 80%;
     margin: auto;
     text-align: center;
     padding-top: 50px;
     padding-bottom: 0;
     background-color: #fff;
 }
-.campus-col1{
-    flex-basis: 32%;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    position: relative;
-    overflow: hidden;
-    background-color: #fff;
-    margin-right: 100px;
-    margin-left: 100px;
-}
-.campus-col1 img{
-    width: 100%;
-}
+
 
 .layer1{
     background: transparent;
@@ -1177,6 +1221,40 @@ h3{
         opacity: 1;
         font-size: 24px;
     }
+}
+.campus {
+    overflow-x: auto;  /* Enable horizontal scrolling */
+    white-space: nowrap;  /* Prevent wrapping of contents */
+}
+
+.scroll-container {
+    display: flex;  /* Ensure children (campus-col) are in a flex container */
+    flex-wrap: nowrap;  /* Prevent wrapping of flex items */
+    padding-bottom: 20px;  /* Optional: Add some padding if needed */
+}
+
+.campus-col {
+    flex: 0 0 auto;  /* Prevent flex items from growing or shrinking */
+    width: 300px;  /* Set a fixed width for each column */
+    margin-right: 20px;  /* Optional: Add margin between columns */
+    cursor: pointer;
+}
+
+/* Optional: Style for the images and text inside each campus-col */
+.campus-col img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;  /* Rounded corners for images */
+}
+
+.layer1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    width: 100%;
 }
 @media (max-width: 700px) {
     /* Campus Section */
