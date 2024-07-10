@@ -417,6 +417,31 @@ h3{
     transition: .3s;
     font-size: 60px;
 }
+@media only screen and (max-width: 768px) {
+    .scroll-btn {
+        display: none; /* Hide scroll buttons on mobile devices */
+    }
+}
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(42, 62, 152, 0.901);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    z-index: 1;
+}
+
+.left-btn {
+    left: 10px;
+}
+
+.right-btn {
+    right: 10px;
+}
 .layer1:hover h3{
     bottom: 49%;
     opacity: 0.6;
@@ -429,6 +454,9 @@ h3{
     padding-bottom: 50px;
     overflow: hidden; /* Hide scrollbar */
     white-space: nowrap;
+    overflow-x: auto;
+    white-space: nowrap; /* Ensure items stay in a single line */
+    position: relative; 
 }
 
 .scroll-container {
@@ -664,7 +692,7 @@ h3{
 .footer {
     width: 100%;
     padding: 30px 0;
-    background-color: #1cac4a;
+    background-color: #000;
     color: #fff;
 }
 
@@ -675,14 +703,17 @@ h3{
     flex-wrap: wrap;
     margin: 0 auto;
     padding: 0 20px; /* Added padding for spacing */
-    max-width: 800px; /* Optional max width for centering content */
+    max-width: 800px;
+    color: white; /* Optional max width for centering content */
 }
 
 .footer-links {
     flex: 1;
     margin: 10px;
 }
-
+.footer p{
+    color: white;
+}
 .footer-links h4 {
     margin-bottom: 15px;
     font-weight: 600;
@@ -833,7 +864,7 @@ h3{
 }
 .about-col1 h1{
     padding-top: 0;
-    color: #2a3e98;
+    color: #000;
     text-align: justify;
 }
 .logo {
@@ -842,7 +873,7 @@ h3{
 }
 .about-col1 p{
     padding: 15px 0 25px;
-    color: #2a3e98;
+    color: #000;
     text-align: left;
     font-weight: 400;
     line-height: 25px;
@@ -1223,9 +1254,9 @@ h3{
     }
 }
 .campus {
-    overflow-x: auto;  /* Enable horizontal scrolling */
-    white-space: nowrap;  /* Prevent wrapping of contents */
-}
+    overflow-x: auto; 
+     /* Enable horizontal scrolling */
+    white-space: nowrap; }
 
 .scroll-container {
     display: flex;  /* Ensure children (campus-col) are in a flex container */

@@ -107,50 +107,7 @@
             Your browser does not support the video tag.
         </video>
     </section>
-    <script>
-        const track = document.getElementById("image-track");
-
-        const handleOnDown = e => track.dataset.mouseDownAt = e.clientX;
-
-        const handleOnUp = () => {
-            track.dataset.mouseDownAt = "0";  
-            track.dataset.prevPercentage = track.dataset.percentage;
-        }
-
-        const handleOnMove = e => {
-            if (track.dataset.mouseDownAt === "0") return;
-
-            const mouseDelta = parseFloat(track.dataset.mouseDownAt) - e.clientX,
-                  maxDelta = window.innerWidth / 2;
-
-            const percentage = (mouseDelta / maxDelta) * -100,
-                  nextPercentageUnconstrained = parseFloat(track.dataset.prevPercentage) + percentage,
-                  nextPercentage = Math.max(Math.min(nextPercentageUnconstrained, 0), -100);
-
-            track.dataset.percentage = nextPercentage;
-
-            track.animate({
-                transform: `translate(${nextPercentage}%, -50%)`
-            }, { duration: 1200, fill: "forwards" });
-
-            for (const image of track.getElementsByClassName("campus-col")) {
-                image.animate({
-                    objectPosition: `${100 + nextPercentage}% center`
-                }, { duration: 1200, fill: "forwards" });
-            }
-        }
-
-        window.onmousedown = e => handleOnDown(e);
-        window.ontouchstart = e => handleOnDown(e.touches[0]);
-
-        window.onmouseup = e => handleOnUp(e);
-        window.ontouchend = e => handleOnUp(e.touches[0]);
-
-        window.onmousemove = e => handleOnMove(e);
-        window.ontouchmove = e => handleOnMove(e.touches[0]);
-    </script>
-
-    <section class="campus">
+    <section class="campus" id="product-categories">
         <h1 style="text-align: left;"><b>Products</b></h1>
         <p style="text-align: left;">Product categories we offer at MedPrime International</p>
         <div class="scroll-container">
@@ -203,8 +160,16 @@
                         <h3>Gynaecology,<br>Women's health,<br>Infertility</h3>
                     </div>
                 </div>
+
             </div>
+            
         </div>
+        <button class="scroll-btn left-btn" onclick="scrollCategories('left')">
+            <i class="fa fa-chevron-left"></i>
+        </button>
+        <button class="scroll-btn right-btn" onclick="scrollCategories('right')">
+            <i class="fa fa-chevron-right"></i>
+        </button>
     </section>
 
     <section id="product-display" style="padding-bottom: 40px;">
@@ -520,6 +485,9 @@
 
             table += `</tbody></table>`;
             productDisplay.innerHTML = table;
+
+            // Scroll to the product display section
+            productDisplay.scrollIntoView({ behavior: "smooth" });
         }
 
         function sortTable(order) {
@@ -539,5 +507,7 @@
             rows.forEach(row => table.appendChild(row));
         }
     </script>
+
+
 </body>
 </html>
