@@ -208,15 +208,16 @@ nav .fa{
 
 /*---------- course --------*/
 
-.course{
+.course {
     width: 100%;
     margin: auto;
     background-color: #2a3e98;
+    position: relative; /* Necessary for positioning pseudo-element */
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Vertical center alignment */
-    align-items: center; /* Horizontal center alignment */
+    justify-content: center;
+    align-items: center;
 }
 h1{
     font-size: 36px;
@@ -233,6 +234,17 @@ h1{
     line-height: 24px;
     padding: 10px;
     text-align: center;
+}
+.course::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/hex.png') no-repeat center center/cover; /* Background image */
+    opacity: 0.2; /* 20% opacity */
+    z-index: 1;
 }
 .row2 {
     width: 90%;
@@ -699,22 +711,18 @@ h3{
 .footer-content {
     display: flex;
     justify-content: space-around;
-    align-items: flex-start; /* Align items at the top */
+    align-items: flex-start;
     flex-wrap: wrap;
     margin: 0 auto;
-    padding: 0 20px; /* Added padding for spacing */
-    max-width: 800px;
-    color: white; /* Optional max width for centering content */
+    padding: 0 20px;
+    max-width: 1200px;
 }
 
-.footer-links {
-    flex: 1;
+.footer-links, .footer-info, .footer-map {
     margin: 10px;
 }
-.footer p{
-    color: white;
-}
-.footer-links h4 {
+
+.footer-links h4, .footer-info h4 .footer-map h4{
     margin-bottom: 15px;
     font-weight: 600;
 }
@@ -735,30 +743,14 @@ h3{
 }
 
 .footer-links ul li a:hover {
-    color: #fff; /* Change color on hover */
-}
-
-.footer-divider {
-    width: 1px;
-    background-color: #fff;
-    height: auto; /* Full height of the content */
-    margin: 0 20px;
-}
-
-.footer-info {
-    flex: 1;
-    margin: 10px;
-}
-
-.footer-info h4 {
-    margin-bottom: 15px;
-    font-weight: 600;
+    color: #fff;
 }
 
 .footer-info p {
     margin: 5px 0;
     font-size: 16px;
     text-align: left;
+    color: white;
 }
 
 .footer-link {
@@ -768,35 +760,33 @@ h3{
 }
 
 .footer-link:hover {
-    color: #fff; /* Change color on hover */
+    color: #fff;
 }
 
-/* Responsive Styles */
+.footer-map iframe {
+    width: 100%;
+    max-width: 400px;
+    height: 200px;
+}
+
 @media only screen and (max-width: 768px) {
     .footer-content {
         flex-direction: column;
         text-align: center;
         align-items: flex-start;
         padding: 0 10px;
-        padding-left: 40px;
     }
 
-    .footer-links, .footer-info {
+    .footer-links, .footer-info, .footer-map {
         flex: 1 1 auto;
         margin: 10px 0;
         text-align: left;
-        align-items: flex-start;
     }
 
-    .footer-divider {
-        display: none;
-    }
-
-    .footer-info p, .footer p {
+    .footer-info p {
         font-size: 14px;
     }
 }
-
 
 /*--------------- About Us Page --------------*/
 
