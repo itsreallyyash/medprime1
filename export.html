@@ -102,7 +102,7 @@
         <h1>Export</h1>
 
         <!-- HTML5 Video Element for Background Video -->
-        <video autoplay muted loop id="bgVideo">
+        <video playsinline autoplay muted loop id="bgVideo">
             <source src="images/bg1.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -656,23 +656,6 @@ height: 40px;
             });
             
                 </script>
-                <script>
-                    // Your existing script for menu toggling
-                    var navLinks = document.getElementById("navLinks");
                 
-                    function showMenu() {
-                        navLinks.style.right = "0";
-                    }
-                
-                    function hideMenu() {
-                        navLinks.style.right = "-200px";
-                    }
-                
-                    // Example function for product display (modify as per your implementation)
-                    function showProducts(category) {
-                        console.log("Clicked on category: " + category);
-                        // Add logic to display products based on category
-                    }
-                </script>
 </body>
 </html>

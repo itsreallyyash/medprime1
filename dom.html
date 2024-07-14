@@ -102,19 +102,18 @@
         <h1>Domestic</h1>
 
         <!-- HTML5 Video Element for Background Video -->
-        <video autoplay muted loop id="bgVideo">
-            <source src="images/truck.mp4" type="video/mp4">
+        <video playsinline autoplay muted loop id="bgVideo">
+            <source src="images/truc.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </section>
     
     <section class="campus" id="product-categories">
-        <h1 style="text-align: left;" class="animate"><b>Our Diverse Product Categories at MedPrime
-            International</b></h1>
-        <p style="text-align: left;" class="animate">At MedPrime International, we pride
+        <h1 style="text-align: left;"class="animate"><b>Our Diverse Product Categories at MedPrime International</b></h1>
+        <p class="animate" style="text-align: left;">At MedPrime International, we pride
             ourselves on offering a vast range of product categories. Our extensive portfolio
-            includes a <br>wide variety of pharmaceutical goods designed to meet the diverse needs of
-            our clients.</p>
+            includes a wide<br> variety of pharmaceutical goods designed to meet the diverse needs of
+            our clients</p>
         <div class="scroll-container">
             <div class="row" id="scroll-container">
                 <div class="campus-col" onclick="showProducts('Vitamins, Proteins, Calcium, Neutraceuticals')">
@@ -589,26 +588,7 @@ height: 40px;
 }
 
     </script>
-
     <button id="backToTopBtn" title="Back to Top">Back to Top</button>
-    <script>
-        // Your existing script for menu toggling
-        var navLinks = document.getElementById("navLinks");
-    
-        function showMenu() {
-            navLinks.style.right = "0";
-        }
-    
-        function hideMenu() {
-            navLinks.style.right = "-200px";
-        }
-    
-        // Example function for product display (modify as per your implementation)
-        function showProducts(category) {
-            console.log("Clicked on category: " + category);
-            // Add logic to display products based on category
-        }
-    </script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
         // Intersection Observer for animations
@@ -652,30 +632,30 @@ height: 40px;
     });
     
     </script>
-                <script>
-                    document.addEventListener("DOMContentLoaded", () => {
-                    const options = {
-                        root: null,
-                        rootMargin: "0px",
-                        threshold: 0.1
-                    };
-                
-                    const observer = new IntersectionObserver((entries, observer) => {
-                        entries.forEach(entry => {
-                            if (entry.isIntersecting) {
-                                entry.target.classList.add("visible");
-                                observer.unobserve(entry.target); // stop observing the element once it has become visible
-                            }
-                        });
-                    }, options);
-                
-                    const elements = document.querySelectorAll(".animate");
-                    elements.forEach(element => {
-                        observer.observe(element);
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                const options = {
+                    root: null,
+                    rootMargin: "0px",
+                    threshold: 0.1
+                };
+            
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("visible");
+                            observer.unobserve(entry.target); // stop observing the element once it has become visible
+                        }
                     });
+                }, options);
+            
+                const elements = document.querySelectorAll(".animate");
+                elements.forEach(element => {
+                    observer.observe(element);
                 });
+            });
+            
+                </script>
                 
-                    </script>
-        
 </body>
 </html>
