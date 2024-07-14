@@ -107,9 +107,13 @@
             Your browser does not support the video tag.
         </video>
     </section>
+    
     <section class="campus" id="product-categories">
-        <h1 style="text-align: left;"><b>Products</b></h1>
-        <p style="text-align: left;">Product categories we offer at MedPrime International</p>
+        <h1 style="text-align: left;"class="animate"><b>Our Diverse Product Categories at MedPrime International</b></h1>
+        <p class="animate" style="text-align: left;">At MedPrime International, we pride
+            ourselves on offering a vast range of product categories. Our extensive portfolio
+            includes a wide<br> variety of pharmaceutical goods designed to meet the diverse needs of
+            our clients</p>
         <div class="scroll-container">
             <div class="row" id="scroll-container">
                 <div class="campus-col" onclick="showProducts('Vitamins, Proteins, Calcium, Neutraceuticals')">
@@ -177,32 +181,87 @@
     </section>
 
 
-    <section class="footer">
-        <div class="footer-content">
-            <div class="footer-links">
-                <h4>Useful Links</h4>
-                <ul>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="#">Export</a></li>
-                    <li><a href="#">Domestic</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="footer-info">
-                <h4>Contact</h4>
-                <p>SHOP NO.10, GRD FLOOR, SAVANI CHSL,<br>
-                RAJAWADI NAKA, M.G. ROAD,<br>
-                GHATKOPAR EAST, MUMBAI Tal: GHATKOPAR<br>
-                (MUMBAI-ZONE3) Pin: 400077</p>
-                <p>Email: <a href="mailto:info@medprime-international.com" class="footer-link">info@medprime-international.com</a></p>
-                <p>Phone: <a href="tel:+918928291367" class="footer-link">+91 89282 91367</a></p>
-            </div>
-            <div class="footer-map">
-                <h4>Location</h4>
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8665.855255269975!2d72.92232553809501!3d19.11407482906203!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c7b1349c8f13%3A0x49e95b876b8931b1!2sShop%20No%2010!5e0!3m2!1sen!2sin!4v1720777513659!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
+<!-------- footer ---------->
+<section class="footer">
+    <div class="footer-content">
+        <div class="footer-left" style="display: flex; align-items: center; height: 100%; padding-right: 50px; padding-top: 5%;">
+            <img src="images/logo2.png" alt="Company Logo" class="company-logo" style="max-height: 80px;">
         </div>
-    </section>
+        <div class="footer-links" style="padding-right: 20px;">
+            <h4>Useful Links</h4>
+            <ul>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="#">Export</a></li>
+                <li><a href="#">Domestic</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="footer-info" style="padding-right: 20px;">
+            <h4><b>Contact</b></h4>
+            <p>Shop No.10, Grd Floor, Savani Chsl,<br>
+                Rajawadi Naka, M.G. Road,<br>
+                Ghatkopar East, Mumbai Tal: Ghatkopar<br>
+                (Mumbai-Zone3) Pin: 400077</p>
+            <p>Email: <a href="mailto:info@medprime-international.com" class="footer-link">info@medprime-international.com</a></p>
+            <p>Phone: <a href="tel:+91 98196 61702" class="footer-link">+91 98196 61702</a></p>
+        </div>
+        <div class="footer-map">
+            <h4>Location</h4>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8665.855255269975!2d72.92232553809501!3d19.11407482906203!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c7b1349c8f13%3A0x49e95b876b8931b1!2sShop%20No%2010!5e0!3m2!1sen!2sin!4v1720777513659!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+    <a href="https://wa.me/919819661702" class="whatsapp-button" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp" class="whatsapp-icon">
+    </a>
+</section>
+
+
+<style>
+.footer {
+position: relative;
+padding-bottom: 60px; /* Adjust as needed to make space for the WhatsApp button */
+}
+
+.footer-content {
+display: flex;
+justify-content: space-between;
+}
+
+.footer-left {
+display: flex;
+flex-direction: column;
+align-items: center; /* Align items in the center vertically */
+}
+
+.footer-info, .footer-map {
+flex: 1;
+}
+
+.company-logo {
+max-height: 80px; /* Adjust as needed */
+margin-bottom: 20px; /* Space between logo and Useful Links */
+}
+
+.whatsapp-button {
+position: absolute;
+bottom: 20px;
+right: 20px;
+background-color: #25D366;
+border-radius: 50%;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+padding: 10px;
+z-index: 1000;
+}
+
+.whatsapp-icon {
+width: 40px;
+height: 40px;
+}
+
+
+</style>
+
+
 
     <script>
         const mockData = {
@@ -510,7 +569,92 @@
             rows.forEach(row => table.appendChild(row));
         }
     </script>
+    <script>
+        function scrollCategories(direction) {
+    const container = document.getElementById('scroll-container');
+    const scrollAmount = 300; // Adjust as needed
 
+    if (direction === 'left') {
+        container.scrollBy({
+            left: -scrollAmount,
+            behavior: 'smooth'
+        });
+    } else if (direction === 'right') {
+        container.scrollBy({
+            left: scrollAmount,
+            behavior: 'smooth'
+        });
+    }
+}
 
+    </script>
+    <button id="backToTopBtn" title="Back to Top">Back to Top</button>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+        // Intersection Observer for animations
+        const options = {
+            root: null,
+            rootMargin: "0px",
+            threshold: 0.1
+        };
+    
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                    observer.unobserve(entry.target); // stop observing the element once it has become visible
+                }
+            });
+        }, options);
+    
+        const elements = document.querySelectorAll(".animate");
+        elements.forEach(element => {
+            observer.observe(element);
+        });
+    
+        // Back to Top button functionality
+        const backToTopBtn = document.getElementById("backToTopBtn");
+    
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                backToTopBtn.style.display = "block";
+            } else {
+                backToTopBtn.style.display = "none";
+            }
+        };
+    
+        backToTopBtn.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+    });
+    
+    </script>
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                const options = {
+                    root: null,
+                    rootMargin: "0px",
+                    threshold: 0.1
+                };
+            
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("visible");
+                            observer.unobserve(entry.target); // stop observing the element once it has become visible
+                        }
+                    });
+                }, options);
+            
+                const elements = document.querySelectorAll(".animate");
+                elements.forEach(element => {
+                    observer.observe(element);
+                });
+            });
+            
+                </script>
 </body>
 </html>

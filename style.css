@@ -213,7 +213,7 @@ nav .fa{
     margin: auto;
     background-color: #2a3e98;
     position: relative; /* Necessary for positioning pseudo-element */
-    height: 100vh;
+    height: 80vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -259,6 +259,10 @@ h1{
     justify-content: space-evenly; 
  
 }
+.row9{
+    display:flex;
+    justify-content: space-evenly; 
+ }
 .row3{
     margin-top: 5%;
     display: inline-flex;
@@ -331,9 +335,45 @@ h3{
     box-shadow: 15PX 15pX 50px 0px rgba(0, 0, 0, 0.7);
     color: #000;
 }
+.strength-box {
+    border: 2px solid #2a3e98;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    height: 27vh;
+    padding-top: 30px;
+    border-radius: 2rem;
+    gap: 6px;
+    padding-bottom: 2%;
+}
+.strength-box img.box-logo {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    width: 60px; /* Adjust size as needed */
+    height: 60px; /* Adjust size as needed */
+    border: 2px solid #2a3e98;
+    border-radius: 50%;
+    background-color: #fff;
+    padding: 5px;
+}
 
 @media (max-width:700px){
+    .strength-box img.box-logo {
+        width: 50px; /* Adjust size as needed */
+    height: 50px;
+    }
     .row5{
+        flex-direction: column;
+        margin: auto;
+    }
+    .about-col1 h3{
+        font-size: 20px;
+    }
+    .strength-box {
+        height: 20vh;
+    }
+    .row9{
         flex-direction: column;
         margin: auto;
     }
@@ -727,7 +767,6 @@ h3{
 }
 
 .footer-links h4, .footer-info h4 .footer-map h4{
-    margin-bottom: 15px;
     font-size: 24px;
 }
 
@@ -854,7 +893,6 @@ h3{
 }
 .about-col1{
     flex-basis: 48%;
-    padding: 30px 2px;
 }
 .about-col1 h1{
     padding-top: 0;
@@ -1065,6 +1103,7 @@ h3{
 }
 .campus1 p{
     color: #000;
+    font-size: 25px;
 }
 .campus1{
     width: 80%;
