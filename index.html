@@ -19,7 +19,7 @@
 
     <body>
     <section class="header">
-        <video playsinline autoplay muted loop id="video-background">
+        <video playsinline autoplay muted loop id="video-background" preload="auto">
             <source src="images/gg.mp4.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -243,46 +243,29 @@
 
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    var video = document.getElementById('video-background');
-
-    // Function to start video playback
-    function startVideo() {
-        if (video.paused) {
-            var promise = video.play();
-            if (promise !== undefined) {
-                promise.then(function () {
-                    // Autoplay started successfully
-                }).catch(function (error) {
-                    // Autoplay failed, handle error
-                    console.log('Autoplay failed: ' + error);
-                });
+    document.addEventListener('DOMContentLoaded', function () {
+        var video = document.getElementById('video-background');
+    
+        // Function to start video playback
+        function startVideo() {
+            if (video.paused) {
+                var promise = video.play();
+                if (promise !== undefined) {
+                    promise.then(function () {
+                        // Autoplay started successfully
+                    }).catch(function (error) {
+                        // Autoplay failed, handle error
+                        console.log('Autoplay failed: ' + error);
+                    });
+                }
             }
         }
-    }
-
-    // Add event listener for user interaction to start the video
-    document.addEventListener('click', function () {
+    
+        // Start video playback on page load
         startVideo();
     });
-
-    // Alternatively, use a specific element to trigger video start
-    var startButton = document.getElementById('startButton');
-    if (startButton) {
-        startButton.addEventListener('click', function () {
-            startVideo();
-        });
-    }
-
-    // Detect iOS and start video playback
-    var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    if (iOS) {
-        video.load(); // Reload the video element
-        video.addEventListener('touchstart', startVideo);
-    }
-});
-
-</script>
+    </script>
+    
   
 <!----JavaScript for toggle menu---->
 <script>
