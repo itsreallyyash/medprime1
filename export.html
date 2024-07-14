@@ -191,9 +191,9 @@
             <h4>Useful Links</h4>
             <ul>
                 <li><a href="about.html">About Us</a></li>
-                <li><a href="#">Export</a></li>
-                <li><a href="#">Domestic</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><a href="export.html">Export</a></li>
+                <li><a href="dom.html">Domestic</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
             </ul>
         </div>
         <div class="footer-info" style="padding-right: 20px;">
@@ -655,6 +655,24 @@ height: 40px;
                 });
             });
             
+                </script>
+                <script>
+                    // Your existing script for menu toggling
+                    var navLinks = document.getElementById("navLinks");
+                
+                    function showMenu() {
+                        navLinks.style.right = "0";
+                    }
+                
+                    function hideMenu() {
+                        navLinks.style.right = "-200px";
+                    }
+                
+                    // Example function for product display (modify as per your implementation)
+                    function showProducts(category) {
+                        console.log("Clicked on category: " + category);
+                        // Add logic to display products based on category
+                    }
                 </script>
 </body>
 </html>
