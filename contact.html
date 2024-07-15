@@ -62,6 +62,18 @@ function hideMenu() {
 </script>
 
 <style>
+    .success-message {
+            display: none;
+            background-color: #1cac4a;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            border-radius: 5px;
+        }
     .container-custom {
         margin-top: 20px;
     }
@@ -166,37 +178,43 @@ function hideMenu() {
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
+<div class="success-message" id="successMessage">
+    Request Sent Successfully!
+</div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
     <script>
-document.addEventListener("DOMContentLoaded", () => {
-    emailjs.init("U7hRIOceo_GK4-5Ft"); // Add your EmailJS user ID here
+    document.addEventListener("DOMContentLoaded", () => {
+            emailjs.init("U7hRIOceo_GK4-5Ft"); // Add your EmailJS user ID here
+    
+            document.getElementById("myForm").addEventListener("submit", function(event) {
+                event.preventDefault();
+                
+                const serviceID = "service_mvds96c";
+                const templateID = "template_saapxxt";
+                
+                emailjs.sendForm(serviceID, templateID, this).then(
+                    (response) => {
+                        console.log("SUCCESS!", response.status, response.text);
+                        showSuccessMessage();
+                    },
+                    (error) => {
+                        console.log("FAILED...", error);
+                        alert("FAILED...", error);
+                    }
+                );
+            });
 
-    document.getElementById("myForm").addEventListener("submit", function(event) {
-        event.preventDefault();
-        
-        // Log form data before sending
-        const formData = new FormData(this);
-        for (let [key, value] of formData.entries()) {
-            console.log(`${key}: ${value}`);
-        }
-        
-        const serviceID = "service_mvds96c";
-        const templateID = "template_saapxxt";
-        
-        emailjs.sendForm(serviceID, templateID, this).then(
-            (response) => {
-                console.log("SUCCESS!", response.status, response.text);
-                alert("SUCCESS!");
-            },
-            (error) => {
-                console.log("FAILED...", error);
-                alert("FAILED...", error);
+            function showSuccessMessage() {
+                const successMessage = document.getElementById("successMessage");
+                successMessage.style.display = "block";
+
+                setTimeout(() => {
+                    successMessage.style.display = "none";
+                }, 3000); // Hide the message after 3 seconds (adjust as needed)
             }
-        );
-    });
-});
+        });
 
     </script>
 
