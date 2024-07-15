@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+    <div id="preloader">
+        <img src="images/logo2.png" alt="Loading...">
+    </div>
     <section class="sub-header">
         <nav>
             <a href="index.html"><img src="images/logo.png" class="logo"></a>
@@ -106,6 +109,15 @@
 }
 
 </style>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var preloader = document.getElementById('preloader');
+        window.addEventListener('load', function () {
+            preloader.classList.add('hidden');
+        });
+    });
+</script>
+
     <section class="facility">
         <h1 style="padding-bottom: 20px;">Knowledgeable Team</h1>
         <div class="row5">
