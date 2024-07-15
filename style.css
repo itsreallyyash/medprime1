@@ -544,10 +544,8 @@ h3{
     width: 80%;
     margin: auto;
     text-align: left;
-    padding-top: 50px;
     padding-bottom: 50px;
     overflow: hidden; /* Hide scrollbar */
-    white-space: nowrap;
     overflow-x: auto;
     white-space: nowrap; /* Ensure items stay in a single line */
     position: relative; 
@@ -1146,6 +1144,9 @@ h3{
 .campus1 p{
     color: #000;
     font-size: 25px;
+    word-break: break-word;
+    white-space: normal;
+    text-align: left;
 }
 .campus1{
     width: 80%;
@@ -1242,11 +1243,18 @@ h3{
         flex-direction: column;
         align-items: center;
     }
+    .campus1 h1{
+        font-size: 20px;
+        word-break: break-word; /* Ensure long words are broken to fit */
+        white-space: normal;
+        text-align: left; 
+           }
     .campus1 p {
         font-size: 11px;
         width: 100%; /* Ensure the element takes up full width */
         word-break: break-word; /* Ensure long words are broken to fit */
-        white-space: normal; /* Ensure text wraps to the next line */
+        white-space: normal;
+        text-align: left; /* Ensure text wraps to the next line */
     }
 
     .campus-col {

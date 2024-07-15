@@ -62,7 +62,11 @@
         #product-table tr:nth-child(even) {
             background: #3a4db8;
         }
-
+        .description {
+    max-width: 100%; /* Ensure paragraph wraps within its container */
+    overflow-wrap: break-word; /* Ensure long words break to the next line */
+    word-wrap: break-word; /* Older specification for word breaking */
+}
         #product-table tr:hover {
             background: #2a3e98;
         }
@@ -113,12 +117,15 @@
         </video>
     </section>
     
+    <section class="campus1">
+        <h1 style="text-align: left;" class="animate position:absolute"><b>Our Diverse Product Categories at MedPrime International</b></h1>
+            <p class="max-w-full overflow-wrap-break word-wrap-break">
+                At MedPrime International, we pride ourselves on offering a vast range of product categories. Our extensive portfolio includes a wide variety of pharmaceutical goods designed to meet the diverse needs of our clients.
+            </p>
+                    </div>
+    </section>
     <section class="campus" id="product-categories">
-        <h1 style="text-align: left;"class="animate"><b>Our Diverse Product Categories at MedPrime International</b></h1>
-        <p class="animate" style="text-align: left;">At MedPrime International, we pride
-            ourselves on offering a vast range of product categories. Our extensive portfolio
-            includes a wide<br> variety of pharmaceutical goods designed to meet the diverse needs of
-            our clients</p>
+ 
         <div class="scroll-container">
             <div class="row" id="scroll-container">
                 <div class="campus-col" onclick="showProducts('Vitamins, Proteins, Calcium, Neutraceuticals')">
