@@ -56,7 +56,13 @@
         height: 100%;
         object-fit: cover;
     }
-
+    .custom-google-translate {
+        position: absolute;
+        top: 10px;
+        bottom: 70px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
     .hero-btn {
         text-decoration: none;
         color: #fff;
