@@ -268,7 +268,6 @@ nav .fa{
     margin: auto;
     background-color: #2a3e98;
     position: relative; /* Necessary for positioning pseudo-element */
-    height: 80vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -295,8 +294,8 @@ h1{
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vh;
+    min-height: 100vh;
     background: url('images/hex.png') no-repeat center center/cover; /* Background image */
     opacity: 0.2; /* 20% opacity */
     z-index: 1;
@@ -378,13 +377,38 @@ h1{
     font-size: 22px;
     line-height: 24px;
 }
+.strength-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #2a3e98;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 2rem;
+}
 
+.strength-box:hover::before {
+    opacity: 0.3; /* Adjust the opacity as needed */
+}
 h3{
     text-align: center;
     font-weight: 600;
     margin: 10px 0;
     color: #fff;
     font-size: 32px;
+}
+.row9 h3{
+    text-align: center;
+    font-weight: 600;
+    margin: 10px 0;
+    color: #fff;
+    font-size: 25px;
+}
+.strength-box p{
+    font-size: 20px;
 }
 .course-col:hover{
     box-shadow: 15PX 15pX 50px 0px rgba(0, 0, 0, 0.7);
@@ -395,7 +419,7 @@ h3{
     padding: 20px;
     text-align: center;
     position: relative;
-    height: 35vh;
+    height: 100%;
     padding-top: 30px;
     border-radius: 2rem;
     gap: 6px;
@@ -578,8 +602,6 @@ h3{
 
 
 .row {
-    display: flex;
-    flex-wrap: nowrap;
     scroll-snap-type: x mandatory;
     overflow-x: auto;
     scroll-behavior: smooth;
@@ -832,7 +854,9 @@ h3{
 .footer-links ul li {
     margin: 8px 0;
 }
-
+.container a{
+    color: white ;
+}
 .footer-links ul li a {
     text-decoration: none;
     color: #2a3e98;
@@ -1154,10 +1178,11 @@ h3{
 
 .campus1 h1{
     color: #000;
+    font-size: 30px;
 }
 .campus1 p{
     color: #000;
-    font-size: 25px;
+    font-size: 20px;
     word-break: break-word;
     white-space: normal;
     text-align: left;
