@@ -18,6 +18,12 @@
         opacity: 1;
         visibility: visible;
     }
+    .custom-google-translate {
+        position: absolute;
+        top: 40px;
+        right:40px;
+        z-index: 999999999999999999999999999999999999999;
+    }
 
     #preloader img {
         max-width: 300px;
@@ -49,6 +55,13 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+    }
+    .custom-google-translate {
+        position: absolute;
+        top: 10px;
+        bottom: 70px;
+        left: 50%;
+        transform: translateX(-50%);
     }
     .hero-btn {
         text-decoration: none;
@@ -227,7 +240,7 @@ nav .fa{
         color: #000;
         margin: 10px;
         font-size: 22px;
-        z-index: 999999999999;
+        z-index: 99999999999999999999999999999999;
         cursor: pointer; 
     }
     .text-box h1{
@@ -387,6 +400,7 @@ h3{
     border-radius: 2rem;
     gap: 6px;
     padding-bottom: 2%;
+    margin-bottom: 20px;
 }
 .strength-box img.box-logo {
     position: absolute;
@@ -949,7 +963,7 @@ h3{
     text-align: left;
     font-weight: 400;
     line-height: 25px;
-    font-size: 25px;
+    font-size: 20px;
 }
 .about-col{
     flex-basis: 48%;
@@ -1328,7 +1342,7 @@ h3{
         top: 0;
         right: -200px;
         text-align: left;
-        z-index: 2;
+        z-index: 99999999999999999999999999999999999999999999999;
         transition: 0.5s;
     }
 

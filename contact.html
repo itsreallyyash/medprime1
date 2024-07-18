@@ -2,7 +2,14 @@
 <html lang="en">
 <head>
     <link rel="icon" href="images/logo.png" type="image/png">
-
+        <!-- Other head elements -->
+        <script type="text/javascript">
+            function googleTranslateElementInit() {
+                new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+            }
+        </script>
+        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedPrime</title>
@@ -13,6 +20,9 @@
 <body>
     <div id="preloader">
         <img src="images/logo2.png" alt="Loading...">
+    </div>
+    <div class="custom-google-translate">
+        <div id="google_translate_element"></div>
     </div>
     <section class="sub-header">
         <nav>
@@ -94,7 +104,8 @@ function hideMenu() {
     }
 
     .social-links {
-        margin-top: 20px; /* Add margin to separate from the content above */
+        margin-top: 20px;
+        padding-bottom: 20px; /* Add margin to separate from the content above */
     }
 
     .social-links a {
@@ -148,13 +159,13 @@ function hideMenu() {
         <!-- name -->
         <div class="form-group">
             <label for="name" class="animate">Name</label>
-            <input type="text" name="name" class="form-control" id="name" placeholder="Name" />
+            <input type="text" name="name" class="form-control" id="name" placeholder="Name" required />
         </div>
 
         <!-- email -->
         <div class="form-group">
             <label for="email" class="animate">Email address</label>
-            <input type="email" name="email" class="form-control" id="email" placeholder="Email" />
+            <input type="email" name="email" class="form-control" id="email" placeholder="Email" required />
         </div>
 
         <!-- location -->
@@ -164,7 +175,7 @@ function hideMenu() {
         </div>
         
         <!-- phone number -->
-        <div class="form-group" style="display: inline-block; width: 47%; margin-left: 4%; vertical-align: top;">
+        <div class="form-group" style="display: inline-block; width: 46%; margin-left: 4%; vertical-align: top;">
             <label for="phone" class="animate">Phone Number</label>
             <input type="text" name="phone" class="form-control" id="phone" placeholder="Phone Number" />
         </div>
@@ -265,7 +276,7 @@ function hideMenu() {
                 Ghatkopar East, Mumbai Tal: Ghatkopar<br>
                 (Mumbai-Zone3) Pin: 400077</p>
             <p>Email: <a href="mailto:info@medprime-international.com" class="footer-link">info@medprime-international.com</a></p>
-            <p>Phone: <a href="tel:+91 98196 61702" class="footer-link">+91 98196 61702</a></p>
+            <p>Phone: <a href="tel:+91 89282 91367" class="footer-link"> +91 89282 91367</a><a href="tel:+91 98196 61702" class="footer-link"> / +91 98196 61702</a></p>
         </div>
         <div class="footer-map">
             <h4>Location</h4>
