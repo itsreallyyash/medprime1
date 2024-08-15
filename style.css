@@ -59,7 +59,7 @@
     .custom-google-translate {
         position: absolute;
         top: 10px;
-        bottom: 70px;
+        /* bottom: 70px; */
         left: 50%;
         transform: translateX(-50%);
     }
@@ -272,6 +272,7 @@ nav .fa{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 80%;
 }
 h1{
     font-size: 36px;
@@ -294,8 +295,8 @@ h1{
     position: absolute;
     top: 0;
     left: 0;
-    width: 100vh;
-    min-height: 100vh;
+    width: 60%;
+    height: 100%;
     background: url('images/hex.png') no-repeat center center/cover; /* Background image */
     opacity: 0.2; /* 20% opacity */
     z-index: 1;
@@ -365,7 +366,7 @@ h1{
     text-align: center;
 }
 .course-col h3{
-    font-size: 32px;
+    font-size: 25px;
     font-weight: 600;
     color: #2a3e98;
     text-align: center;
@@ -374,7 +375,7 @@ h1{
     text-align: center;
     text-transform: capitalize;
     color: #2a3e98;
-    font-size: 22px;
+    font-size: 20 px;
     line-height: 24px;
 }
 .strength-box::before {
@@ -606,6 +607,11 @@ h3{
     overflow-x: auto;
     scroll-behavior: smooth;
 }
+.row13 {
+    display: inline-flex;
+    flex-wrap: nowrap;
+}
+
 
 .campus-col {
     flex: 0 0 auto;
@@ -1279,6 +1285,10 @@ h3{
 }
 @media (max-width: 700px) {
     .row {
+        flex-direction: column;
+        align-items: center;
+    }
+    .row13 {
         flex-direction: column;
         align-items: center;
     }
